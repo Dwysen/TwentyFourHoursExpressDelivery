@@ -15,9 +15,46 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+  
+        self.window = UIWindow(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight))
+        self.window?.makeKeyAndVisible()
+        
+        setupTabBar()
+        
         return true
     }
+    
+    private func setupTabBar(){
+        
+        let tabbarController = UITabBarController()
+        
+        let homeController = TFNavigationViewController(rootViewController: HomeViewController())
+
+      
+//        let servicePointController = TFNavigationViewController(rootViewController: MeViewController())
+        let sendExpressController = TFNavigationViewController(rootViewController: SendExpressViewController())
+        let claimController = ClaimViewController()
+        let meController = TFNavigationViewController(rootViewController:  MeViewController())
+        
+        
+        tabbarController.viewControllers = [homeController,sendExpressController,claimController,meController]
+        
+        let tabbarItem1 = UITabBarItem(title: "首页", image: UIImage(named: "CD"), selectedImage: UIImage(named: "CD"))
+        let tabbarItem2 = UITabBarItem(title: "寄件", image: UIImage(named: "CD"), selectedImage: UIImage(named: "CD"))
+        let tabbarItem3 = UITabBarItem(title: "理赔", image: UIImage(named: "CD"), selectedImage: UIImage(named: "CD"))
+        let tabbarItem4 = UITabBarItem(title: "我的", image: UIImage(named: "CD"), selectedImage: UIImage(named: "CD"))
+        
+        
+        homeController.tabBarItem = tabbarItem1
+        sendExpressController.tabBarItem = tabbarItem2
+        claimController.tabBarItem = tabbarItem3
+        meController.tabBarItem = tabbarItem4
+        
+        //        homeController.tabBarController?.tabBar.tintColor = UIColor.red
+        self.window?.rootViewController = tabbarController
+        
+    }
+
 
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
