@@ -33,7 +33,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
       
 //        let servicePointController = TFNavigationViewController(rootViewController: MeViewController())
         let sendExpressController = TFNavigationViewController(rootViewController: SendExpressViewController())
-        let claimController = ClaimViewController()
+        let claimController = TFNavigationViewController(rootViewController:  ClaimViewController())
         let meController = TFNavigationViewController(rootViewController:  MeViewController())
         
         

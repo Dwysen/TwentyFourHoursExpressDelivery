@@ -48,8 +48,6 @@ class MeViewController: UIViewController {
         
         super.viewDidLoad()
 
-        
-        
         setupTableHeadView()
         
         setupTableView()

@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "DA8092AEBEA9FD5331151CB5F997CCA76FAC68F9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "2B32F2FA084184E2E6EEB09F2630978435E9F18F" : 9223372036854775807,
+    "DA8092AEBEA9FD5331151CB5F997CCA76FAC68F9" : 9223372036854775807
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "EAFE3040-A0A2-4380-90A7-4D07FAFC7393",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "2B32F2FA084184E2E6EEB09F2630978435E9F18F" : "TwentyFourHoursExpressDelivery\/TwentyFourHoursExpress\/",
+    "DA8092AEBEA9FD5331151CB5F997CCA76FAC68F9" : "TwentyFourHoursExpressDelivery\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TwentyFourHoursExpress",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TwentyFourHoursExpress.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Dwysen\/TwentyFourHoursExpress.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "2B32F2FA084184E2E6EEB09F2630978435E9F18F"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "https:\/\/github.com\/Dwysen\/TwentyFourHoursExpressDelivery.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "DA8092AEBEA9FD5331151CB5F997CCA76FAC68F9"
+    }
+  ]
+}

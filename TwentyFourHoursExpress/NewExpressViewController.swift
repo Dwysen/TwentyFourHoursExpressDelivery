@@ -32,6 +32,8 @@ class NewExpressViewController: UIViewController {
         BackgroundLabel.isHidden = true
         
         setupCollectionView()
+        
+        
    
         // Do any additional setup after loading the view.
     }

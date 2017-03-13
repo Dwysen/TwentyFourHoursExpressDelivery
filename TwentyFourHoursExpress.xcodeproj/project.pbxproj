@@ -46,6 +46,8 @@
 		188A0F041E69444100F69F02 /* HomeButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A0F031E69444100F69F02 /* HomeButtonView.swift */; };
 		188A0F061E69559A00F69F02 /* ExpressHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A0F051E69559A00F69F02 /* ExpressHistoryViewController.swift */; };
 		188A0F091E69668800F69F02 /* SendExpressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 188A0F081E69668800F69F02 /* SendExpressViewController.swift */; };
+		18A196051E76453000EA3870 /* ClaimReasonTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A196041E76453000EA3870 /* ClaimReasonTableViewController.swift */; };
+		18A1960A1E768BB800EA3870 /* StringMd5.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A196091E768BB800EA3870 /* StringMd5.swift */; };
 		18AC65C61E70F16600BF53AA /* LoginByPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */; };
 		18AC65C81E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */; };
 		18AC65CC1E712FD900BF53AA /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */; };
@@ -93,6 +95,9 @@
 		188A0F031E69444100F69F02 /* HomeButtonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeButtonView.swift; sourceTree = "<group>"; };
 		188A0F051E69559A00F69F02 /* ExpressHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressHistoryViewController.swift; sourceTree = "<group>"; };
 		188A0F081E69668800F69F02 /* SendExpressViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendExpressViewController.swift; sourceTree = "<group>"; };
+		18A196041E76453000EA3870 /* ClaimReasonTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ClaimReasonTableViewController.swift; sourceTree = "<group>"; };
+		18A196061E768B8300EA3870 /* TwentyFourHoursExpress-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "TwentyFourHoursExpress-Bridging-Header.h"; sourceTree = "<group>"; };
+		18A196091E768BB800EA3870 /* StringMd5.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StringMd5.swift; sourceTree = "<group>"; };
 		18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByPasswordViewController.swift; sourceTree = "<group>"; };
 		18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByIdentifyCodeViewController.swift; sourceTree = "<group>"; };
 		18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +122,7 @@
 				186B721D1E72783800166B3A /* TFNetworkTool.swift */,
 				184D18C71E67F63200336479 /* Global.swift */,
 				186B721B1E7259B400166B3A /* Validate.swift */,
+				18A196091E768BB800EA3870 /* StringMd5.swift */,
 				186B72251E72930900166B3A /* ProgressHud */,
 			);
 			name = Tool;
@@ -154,6 +160,7 @@
 			isa = PBXGroup;
 			children = (
 				184D18A91E67BEF000336479 /* AppDelegate.swift */,
+				18A196061E768B8300EA3870 /* TwentyFourHoursExpress-Bridging-Header.h */,
 				188A0F071E69667100F69F02 /* SendExpress */,
 				188A0EFC1E69138D00F69F02 /* Home */,
 				184D18CD1E681EFA00336479 /* Claim */,
@@ -187,6 +194,7 @@
 			children = (
 				184D18CE1E681F2E00336479 /* ClaimViewController.swift */,
 				186B72261E729A6300166B3A /* ClaimTabieViewController.swift */,
+				18A196041E76453000EA3870 /* ClaimReasonTableViewController.swift */,
 				186B72281E729B2700166B3A /* ClaimCell.swift */,
 			);
 			name = Claim;
@@ -264,6 +272,7 @@
 					184D18A51E67BEF000336479 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = ZN755AG3XE;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -319,11 +328,13 @@
 				1874D0CF1E6E5332006C1416 /* AddressTableViewContriller.swift in Sources */,
 				184D18C01E67C07D00336479 /* MeViewController.swift in Sources */,
 				184D18BE1E67C00000336479 /* TFNavigationViewController.swift in Sources */,
+				18A1960A1E768BB800EA3870 /* StringMd5.swift in Sources */,
 				18AC65C81E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift in Sources */,
 				18AC65CC1E712FD900BF53AA /* ForgetPasswordViewController.swift in Sources */,
 				186B721E1E72783800166B3A /* TFNetworkTool.swift in Sources */,
 				184D18BC1E67BF1700336479 /* UIViewExt.swift in Sources */,
 				186B72241E72919300166B3A /* LKBubbleInfo.swift in Sources */,
+				18A196051E76453000EA3870 /* ClaimReasonTableViewController.swift in Sources */,
 				181D3BA81E6F94E4005B8E9A /* SettingViewController.swift in Sources */,
 				186B72271E729A6300166B3A /* ClaimTabieViewController.swift in Sources */,
 				184D18AC1E67BEF000336479 /* LoginViewController.swift in Sources */,
@@ -465,11 +476,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = ZN755AG3XE;
 				INFOPLIST_FILE = TwentyFourHoursExpress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Dwysen.TwentyFourHoursExpress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TwentyFourHoursExpress/TwentyFourHoursExpress-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
@@ -478,11 +492,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = ZN755AG3XE;
 				INFOPLIST_FILE = TwentyFourHoursExpress/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Dwysen.TwentyFourHoursExpress;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "TwentyFourHoursExpress/TwentyFourHoursExpress-Bridging-Header.h";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

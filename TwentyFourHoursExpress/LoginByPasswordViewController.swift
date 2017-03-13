@@ -73,9 +73,25 @@ class LoginByPasswordViewController: UIViewController {
         let phoneNumber = LoginTextFld.text
         let password = passwordTextFld.text
         
-        TFNetworkTool.postWithURLSession(string: "http://www.boss24delivery.com/index.php/admin/index/admin_list_data")
+        TFNetworkTool.postWithURLSession { [weak self] (code) in
+            
+            if code == "200" {
+            
+                
+            
+            }
+            
+            
+        }
+
         
-        showRightWithTitle(title: "添加成功", autoCloseTime: 2)
+        
+        TFNetworkTool.postWithURLSession { _ in 
+            
+            self.showRightWithTitle(title: "添加成功", autoCloseTime: 2)
+            
+        }
+       
         
 
 //        //密码错误
