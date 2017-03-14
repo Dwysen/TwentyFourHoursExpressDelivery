@@ -42,6 +42,7 @@ class LoginByPasswordViewController: UIViewController {
         
         let Btn = UIButton(frame: CGRect(x: 10, y: 130, width: ScreenWidth - 20, height: 50))
         Btn.backgroundColor = BtnGrayColor()
+        Btn.isEnabled = false
         Btn.setTitleColor(UIColor.white, for: .normal)
         Btn.setTitle("登录", for: .normal)
         Btn.layer.cornerRadius = 5
@@ -68,49 +69,44 @@ class LoginByPasswordViewController: UIViewController {
         
     }
     
-    func Login(){
     
-        let phoneNumber = LoginTextFld.text
-        let password = passwordTextFld.text
+    deinit {
+        print("Login release")
+    }
+    
+    
+    func generateToken(sloat:String){
         
-        TFNetworkTool.postWithURLSession { [weak self] (code) in
+        let token = ("@" + LoginTextFld.text! + "#" + (passwordTextFld.text! + "$" + sloat).md5()).md5()
+        //缓存token
+        UserDefaults.standard.set(token, forKey: "token")
+        
+    }
+    
+    func Login(){
+
+        TFNetworkTool.LoginWithURLSession(phone: LoginTextFld.text!, pwd: passwordTextFld.text!) {  (code, info, sloat) in
             
-            if code == "200" {
-            
+            //成功
+            if code == 200 {
                 
-            
+                DispatchQueue.main.async {
+                    self.showRightWithTitle(title: info, autoCloseTime: 0.5)
+                    let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as! MeViewController
+                    vc.headTopView.nameLabel.text = "baibai"
+                    
+                    UserDefaults.standard.set(self.LoginTextFld.text, forKey: "phone")
+                    self.generateToken(sloat: sloat)
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
+                
             }
-            
-            
+            else {
+                DispatchQueue.main.async {
+                self.showErrorWithTitle(title: info, autoCloseTime: 0.5)
+                }
+            }
         }
-
-        
-        
-        TFNetworkTool.postWithURLSession { _ in 
-            
-            self.showRightWithTitle(title: "添加成功", autoCloseTime: 2)
-            
-        }
-       
-        
-
-//        //密码错误
-//        showErrorWithTitle(title: "密码错误", autoCloseTime: 0.5)
-        
-        
-        
-          //成功
-        
-        
-        
-      
-        let vc = navigationController?.viewControllers[(navigationController?.viewControllers.count)! - 2] as! MeViewController
-        vc.headTopView.nameLabel.text = "baibai"
-        _ = navigationController?.popViewController(animated: true)
-        
-        
-        
-        
     }
     
     func clickRegisterBtn(){
@@ -185,8 +181,6 @@ class LoginByPasswordViewController: UIViewController {
         view.addSubview(View)
         
     }
-    
-    
     
     func clickForgetPassword(){
         

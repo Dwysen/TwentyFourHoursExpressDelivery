@@ -194,6 +194,28 @@ extension MeViewController:UITableViewDelegate{
             //寄件地址
             if indexPath.row == 0 {
             
+                let token = UserDefaults.standard.string(forKey: "token")
+                let phone = UserDefaults.standard.string(forKey: "phone")
+                
+                guard token != nil && phone != nil else {
+                    showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
+                    return
+                }
+                
+                TFNetworkTool.getDeliveryInformation(phone: phone!, token: token!, finished: { (status) in
+                    
+                    if status == 200 {
+                    
+                        print("成功")
+                        
+                    } else {
+                    
+                        print("失败")
+                    
+                    }
+                    
+                })
+    
                 let vc = AddressTableViewContriller()
                 navigationController?.pushViewController(vc, animated: true)
                 

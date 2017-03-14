@@ -15,15 +15,11 @@ class LoginByIdentifyCodeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         setupUI()
-
-        // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     private func setupUI(){
@@ -36,7 +32,8 @@ class LoginByIdentifyCodeViewController: UIViewController {
         buildView(View: passwordView, imageName: "identifyCode", placeholder: "请输入验证码")
         
         let loginBtn = UIButton(frame: CGRect(x: 10, y: 130, width: ScreenWidth - 20, height: 50))
-        loginBtn.backgroundColor = TFColor(204, g: 204, b: 204, a: 1)
+        loginBtn.backgroundColor = BtnGrayColor()
+        loginBtn.isEnabled = false
         loginBtn.setTitleColor(UIColor.white, for: .normal)
         loginBtn.setTitle("登录", for: .normal)
         loginBtn.layer.cornerRadius = 5
@@ -77,7 +74,6 @@ class LoginByIdentifyCodeViewController: UIViewController {
         }
         
         if placeholder == "请输入验证码" {
-            
             let getIdentifyCodeBtn = UIButton(frame: CGRect(x: View.width - 80, y: 15, width: 75, height: 20))
             getIdentifyCodeBtn.layer.cornerRadius = 5
             getIdentifyCodeBtn.layer.masksToBounds = true
@@ -86,7 +82,6 @@ class LoginByIdentifyCodeViewController: UIViewController {
             getIdentifyCodeBtn.backgroundColor = GreenColor()
             getIdentifyCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
             View.addSubview(getIdentifyCodeBtn)
-            
         }
         
         view.addSubview(View)
@@ -104,14 +99,12 @@ class LoginByIdentifyCodeViewController: UIViewController {
     func textFldDidChange(sender:UITextField){
         
         if sender.text == "" {
-            
             cleanBtn.isHidden = true
-            
         } else {
-            
             cleanBtn.isHidden = false
-            
         }
+        
+        
         
     }
 

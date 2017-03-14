@@ -96,9 +96,7 @@ class ClaimViewController: UIViewController {
     }
     
     func clickClaimBtn(){
-        
-        print("1")
-        
+                
         let vc = ClaimTabieViewController()
         navigationController?.pushViewController(vc, animated: true)
         

@@ -18,6 +18,9 @@ class ClaimReasonTableViewController: UIViewController {
     let acceptWayArr = ["支付宝","银行卡"]
     let reasonArr = ["丢了","坏了","没了","废了","飞了"]
     var delegete:ClickClaimProtocol?
+    
+    var selectCount = 0
+    var ensureBtn:UIButton!
 
     
     override func viewDidLoad() {
@@ -25,6 +28,10 @@ class ClaimReasonTableViewController: UIViewController {
         
         setupUI()
         
+    }
+    
+    deinit {
+        print("ClaimReasonTableViewController deinit")
     }
     
     func clickEnsureBtn(){
@@ -68,12 +75,13 @@ class ClaimReasonTableViewController: UIViewController {
         
         view.addSubview(cancleBtn)
         
-        let ensureBtn = UIButton(frame: CGRect(x: ScreenWidth / 2, y: cancleBtn.y, width: ScreenWidth / 2 , height: 45))
+        ensureBtn = UIButton(frame: CGRect(x: ScreenWidth / 2, y: cancleBtn.y, width: ScreenWidth / 2 , height: 45))
         ensureBtn.addTarget(self, action: #selector(clickEnsureBtn), for: .touchUpInside)
-        ensureBtn.backgroundColor = GreenColor()
+        ensureBtn.backgroundColor = BtnGrayColor()
         ensureBtn.setTitleColor(UIColor.white, for: .normal)
         ensureBtn.setTitle("提交", for: .normal)
-        
+        ensureBtn.isEnabled = false
+    
         view.addSubview(ensureBtn)
     
     }
@@ -139,6 +147,7 @@ extension ClaimReasonTableViewController:UITableViewDelegate{
         }
         
         let selectCell = tableView.cellForRow(at: indexPath)
+       
         
         switch indexPath.section {
             
@@ -148,6 +157,7 @@ extension ClaimReasonTableViewController:UITableViewDelegate{
                 cell.accessoryType = .none
             }
             selectCell?.accessoryType = .checkmark
+            selectCount += 1
             
         default:
             
@@ -155,7 +165,15 @@ extension ClaimReasonTableViewController:UITableViewDelegate{
                 cell.accessoryType = .none
             }
             selectCell?.accessoryType = .checkmark
+            selectCount += 1
         }
+        print(selectCount)
+        
+        if selectCount == 2 {
+            ensureBtn.isEnabled = true
+            ensureBtn.backgroundColor = GreenColor()
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
