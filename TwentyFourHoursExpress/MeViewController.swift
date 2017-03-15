@@ -202,17 +202,24 @@ extension MeViewController:UITableViewDelegate{
                     return
                 }
                 
-                TFNetworkTool.getDeliveryInformation(phone: phone!, token: token!, finished: { (status) in
+                // 个人寄件记录
+                
+//                TFNetworkTool.getDeliveryInformation(phone: phone!, token: token!, finished: { (status) in
+//                    
+//                    if status == 200 {
+//                    
+//                        print("成功")
+//                        
+//                    } else {
+//                    
+//                        print("失败")
+//                    
+//                    }
+//                    
+//                })
+                
+                TFNetworkTool.getAllSendExpress(phone: phone!, token: token!, finished: { (status, info) in
                     
-                    if status == 200 {
-                    
-                        print("成功")
-                        
-                    } else {
-                    
-                        print("失败")
-                    
-                    }
                     
                 })
     

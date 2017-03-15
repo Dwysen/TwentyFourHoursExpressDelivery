@@ -12,6 +12,11 @@ class LoginByIdentifyCodeViewController: UIViewController {
     
     private var cleanBtn:UIButton!
     private var LoginTextFld:UITextField!
+    private var IdentifyTextFld:UITextField!
+    
+    private var IdentifyCodeIsRight = false
+    private var LoginNumOK = false
+    private var loginBtn : UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,7 +36,7 @@ class LoginByIdentifyCodeViewController: UIViewController {
         let passwordView = UIView(frame: CGRect(x: 10, y: 70, width: ScreenWidth - 20, height: 50))
         buildView(View: passwordView, imageName: "identifyCode", placeholder: "请输入验证码")
         
-        let loginBtn = UIButton(frame: CGRect(x: 10, y: 130, width: ScreenWidth - 20, height: 50))
+        loginBtn = UIButton(frame: CGRect(x: 10, y: 130, width: ScreenWidth - 20, height: 50))
         loginBtn.backgroundColor = BtnGrayColor()
         loginBtn.isEnabled = false
         loginBtn.setTitleColor(UIColor.white, for: .normal)
@@ -69,7 +74,9 @@ class LoginByIdentifyCodeViewController: UIViewController {
             Btn.addTarget(self, action: #selector(clickCleanBtn), for: .touchUpInside)
             
             cleanBtn = Btn
+            TextFld.tag = 1
             LoginTextFld = TextFld
+            
             
         }
         
@@ -82,6 +89,11 @@ class LoginByIdentifyCodeViewController: UIViewController {
             getIdentifyCodeBtn.backgroundColor = GreenColor()
             getIdentifyCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
             View.addSubview(getIdentifyCodeBtn)
+            
+            TextFld.tag = 2
+            IdentifyTextFld = TextFld
+            
+            
         }
         
         view.addSubview(View)
@@ -102,6 +114,28 @@ class LoginByIdentifyCodeViewController: UIViewController {
             cleanBtn.isHidden = true
         } else {
             cleanBtn.isHidden = false
+        }
+        
+        // 登录判断
+        if sender.tag == 1 {
+            LoginNumOK = Validate.phoneNum(sender.text!).isRight
+        }
+        
+        if sender.tag == 2 {
+            
+            let scan = Scanner(string: IdentifyTextFld.text!)
+            var val:Int = 0
+            let countIsRight = IdentifyTextFld.text?.characters.count == 6 ? true:false
+            IdentifyCodeIsRight = scan.scanInt(&val) && scan.isAtEnd && countIsRight
+            
+        }
+        
+        if LoginNumOK && IdentifyCodeIsRight {
+            loginBtn.backgroundColor = GreenColor()
+            loginBtn.isEnabled = true
+        } else {
+            loginBtn.backgroundColor = BtnGrayColor()
+            loginBtn.isEnabled = false
         }
         
         

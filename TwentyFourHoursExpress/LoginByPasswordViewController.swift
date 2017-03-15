@@ -77,7 +77,8 @@ class LoginByPasswordViewController: UIViewController {
     
     func generateToken(sloat:String){
         
-        let token = ("@" + LoginTextFld.text! + "#" + (passwordTextFld.text! + "$" + sloat).md5()).md5()
+        let token = ("@" + LoginTextFld.text! + "#" + (passwordTextFld.text! + "$" + sloat).md5()).md5() 
+      
         //缓存token
         UserDefaults.standard.set(token, forKey: "token")
         

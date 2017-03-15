@@ -51,6 +51,9 @@
 		18AC65C61E70F16600BF53AA /* LoginByPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */; };
 		18AC65C81E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */; };
 		18AC65CC1E712FD900BF53AA /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */; };
+		18CD904C1E79344700AEFB0E /* TFDeliveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */; };
+		18CD904F1E79348700AEFB0E /* TFPersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */; };
+		18CD90501E79348700AEFB0E /* TFPersonDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -101,6 +104,9 @@
 		18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByPasswordViewController.swift; sourceTree = "<group>"; };
 		18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByIdentifyCodeViewController.swift; sourceTree = "<group>"; };
 		18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFDeliveryList.swift; sourceTree = "<group>"; };
+		18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonInfo.swift; sourceTree = "<group>"; };
+		18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonDelivery.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -192,6 +198,7 @@
 		184D18CD1E681EFA00336479 /* Claim */ = {
 			isa = PBXGroup;
 			children = (
+				18CD904A1E79343E00AEFB0E /* M */,
 				184D18CE1E681F2E00336479 /* ClaimViewController.swift */,
 				186B72261E729A6300166B3A /* ClaimTabieViewController.swift */,
 				18A196041E76453000EA3870 /* ClaimReasonTableViewController.swift */,
@@ -237,6 +244,16 @@
 				1874D0D21E6E966E006C1416 /* AddressBtn.swift */,
 			);
 			name = SendExpress;
+			sourceTree = "<group>";
+		};
+		18CD904A1E79343E00AEFB0E /* M */ = {
+			isa = PBXGroup;
+			children = (
+				18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */,
+				18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */,
+				18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */,
+			);
+			name = M;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -316,6 +333,7 @@
 				186B721C1E7259B400166B3A /* Validate.swift in Sources */,
 				18AC65C61E70F16600BF53AA /* LoginByPasswordViewController.swift in Sources */,
 				180AEA891E6D56B600E2DD4E /* ExpressCell.swift in Sources */,
+				18CD904C1E79344700AEFB0E /* TFDeliveryList.swift in Sources */,
 				186B72221E72918600166B3A /* LKBubbleView.swift in Sources */,
 				1874D0D11E6E568B006C1416 /* AddressCell.swift in Sources */,
 				184D18CB1E680A7600336479 /* MeCell.swift in Sources */,
@@ -338,6 +356,7 @@
 				181D3BA81E6F94E4005B8E9A /* SettingViewController.swift in Sources */,
 				186B72271E729A6300166B3A /* ClaimTabieViewController.swift in Sources */,
 				184D18AC1E67BEF000336479 /* LoginViewController.swift in Sources */,
+				18CD90501E79348700AEFB0E /* TFPersonDelivery.swift in Sources */,
 				181D3BAC1E6FB355005B8E9A /* AdviceViewController.swift in Sources */,
 				184D18C21E67C0FC00336479 /* HeadTopView.swift in Sources */,
 				188A0EFE1E6913A200F69F02 /* HomeViewController.swift in Sources */,
@@ -346,6 +365,7 @@
 				184D18AA1E67BEF000336479 /* AppDelegate.swift in Sources */,
 				188A0F021E69206700F69F02 /* NewExpressViewController.swift in Sources */,
 				188A0F041E69444100F69F02 /* HomeButtonView.swift in Sources */,
+				18CD904F1E79348700AEFB0E /* TFPersonInfo.swift in Sources */,
 				188A0F061E69559A00F69F02 /* ExpressHistoryViewController.swift in Sources */,
 				180AEA871E6D1BC600E2DD4E /* TypeTableViewController.swift in Sources */,
 				188A0F091E69668800F69F02 /* SendExpressViewController.swift in Sources */,

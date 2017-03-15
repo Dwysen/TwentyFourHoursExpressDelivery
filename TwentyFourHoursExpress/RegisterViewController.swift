@@ -11,7 +11,7 @@ import UIKit
 class RegisterViewController: UIViewController {
 
     private var phoneTextFid:UITextField!
-    private var messageTextFid:UITextField!
+    private var identifyTextFid:UITextField!
     private var passwordTextFid:UITextField!
     private var ensurePasswordTextFid:UITextField!
     private var ensureBtn:UIButton!
@@ -20,6 +20,8 @@ class RegisterViewController: UIViewController {
     private var IdentifyCodeIsRight = false
     private var passwordIsRight = false
     private var ensurePasswordIsRight = false
+    
+    private var identifyCode = ""
     
     
     override func viewDidLoad() {
@@ -65,10 +67,18 @@ class RegisterViewController: UIViewController {
     }
     
     
-    
+ 
+    // 注册
     func clickEnsureBtn(){
      
-        TFNetworkTool.RegisterWithURLSession(phone: phoneTextFid.text!, pwd: passwordTextFid.text!) { [weak self] (code,info) in
+        print(identifyCode)
+        
+        guard identifyTextFid.text == identifyCode else {
+            showErrorWithTitle(title: "验证码错误", autoCloseTime: 0.5)
+            return
+        }
+        
+        TFNetworkTool.RegisterWithURLSession(phone: phoneTextFid.text!, pwd: passwordTextFid.text!,code:identifyCode) { [weak self] (code,info) in
             
             DispatchQueue.main.async {
                 
@@ -107,7 +117,7 @@ class RegisterViewController: UIViewController {
             
         case "请输入短信验证码":
             textFid.tag = 1
-            messageTextFid = textFid
+            identifyTextFid = textFid
             iconImageView.image = UIImage(named:"identifyCode")
             let getIdentifyCodeBtn = UIButton(frame: CGRect(x: view.width - 80, y: 15, width: 75, height: 20))
             getIdentifyCodeBtn.layer.cornerRadius = 5
@@ -132,6 +142,18 @@ class RegisterViewController: UIViewController {
             iconImageView.image = UIImage(named:"repeatPassword")
         }
     
+    }
+    
+    func clickGetIdentifyCodeBtn(){
+        
+        TFNetworkTool.getIdentifyCode(phone: phoneTextFid.text!, finished: { (status, code) in
+            
+            if status == 200 {
+                
+                self.identifyCode = code
+                
+            }
+        })
     }
     
     func textFldValueChange(sender:UITextField){
@@ -176,12 +198,6 @@ class RegisterViewController: UIViewController {
         }
     }
     
-    func clickGetIdentifyCodeBtn(){
-    
-    
-    
-    
-    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
