@@ -189,6 +189,13 @@ extension MeViewController:UITableViewDataSource{
 extension MeViewController:UITableViewDelegate{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        
+        guard UserDefaults.standard.bool(forKey: "isLogin") else {
+            showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
+            return
+        }
+        
         switch indexPath.section {
         case 0:
             //寄件地址
@@ -204,24 +211,9 @@ extension MeViewController:UITableViewDelegate{
                 
                 // 个人寄件记录
                 
-//                TFNetworkTool.getDeliveryInformation(phone: phone!, token: token!, finished: { (status) in
-//                    
-//                    if status == 200 {
-//                    
-//                        print("成功")
-//                        
-//                    } else {
-//                    
-//                        print("失败")
-//                    
-//                    }
-//                    
-//                })
+          
                 
-                TFNetworkTool.getAllSendExpress(phone: phone!, token: token!, finished: { (status, info) in
-                    
-                    
-                })
+             
     
                 let vc = AddressTableViewContriller()
                 navigationController?.pushViewController(vc, animated: true)
@@ -232,6 +224,8 @@ extension MeViewController:UITableViewDelegate{
             
             if indexPath.row == 1 {
             
+                
+                
                 let vc = AddressTableViewContriller()
                 navigationController?.pushViewController(vc, animated: true)
                 

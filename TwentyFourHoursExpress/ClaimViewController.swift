@@ -96,7 +96,18 @@ class ClaimViewController: UIViewController {
     }
     
     func clickClaimBtn(){
-                
+        
+        let isLogin = UserDefaults.standard.bool(forKey: "isLogin")
+        print( isLogin )
+        
+     
+        guard UserDefaults.standard.bool(forKey: "isLogin") else {
+            showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
+            return
+        }
+        
+    
+        
         let vc = ClaimTabieViewController()
         navigationController?.pushViewController(vc, animated: true)
         

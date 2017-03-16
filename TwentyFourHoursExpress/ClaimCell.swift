@@ -18,6 +18,17 @@ class ClaimCell: UITableViewCell {
     private var expressTypeLabel = UILabel()
     var claimBtn = UIButton()
     
+    var delivery:TFPersonDelivery?{
+     
+        didSet{
+            companyLabel.text = delivery?.deliveryType
+            IDLabel.text = delivery?.deliveryNum
+            expressTypeLabel.text = delivery.debugDescription
+            
+        }
+    
+    }
+    
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)

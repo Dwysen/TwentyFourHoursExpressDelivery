@@ -15,7 +15,7 @@ class SearchViewController: UIViewController {
         view.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: contentViewHeight)
         view.backgroundColor = UIColor.white
         
-        let searchTextField = UITextField(frame: CGRect(x: 50, y: 30, width: ScreenWidth - 100, height: 30))
+        let searchTextField = UITextField(frame: CGRect(x: 50, y: 50, width: ScreenWidth - 100, height: 30))
         searchTextField.placeholder = "请输入订单号查询"
         searchTextField.borderStyle = .roundedRect
         view.addSubview(searchTextField)

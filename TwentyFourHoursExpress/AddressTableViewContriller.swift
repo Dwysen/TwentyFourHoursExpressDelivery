@@ -20,24 +20,40 @@ class AddressTableViewContriller: UIViewController {
     var testArr = ["1","2","3","4","5","6","7","8","9"]
     
     var delegate:passAddressDelegate?
+    var addressArr:[AcceptAddress]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         navigationController?.isNavigationBarHidden = false
         tabBarController?.tabBar.isHidden = true
+        
+        TFNetworkTool.getAcceptAddress { (addressArr) in
+            
+               self.addressArr = addressArr
+               self.setupTableView()
+            
+        }
+        
+    
+
+        
+        // Do any additional setup after loading the view.
+    }
+
+    func setupTableView(){
+        
         tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - navigationH))
         view.addSubview(tableView)
-        
+
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(AddressCell.self, forCellReuseIdentifier: "AddressCell")
         tableView.backgroundColor = BackScrollColor()
         tableView.tableFooterView = UIView()
-        
-        // Do any additional setup after loading the view.
-    }
 
+    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -78,7 +94,7 @@ extension AddressTableViewContriller:UITableViewDataSource {
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return testArr.count
+        return addressArr!.count
     }
     
 //    func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,8 +103,9 @@ extension AddressTableViewContriller:UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = AddressCell(style: .default, reuseIdentifier: "AddressCell")
+        cell.address = addressArr?[indexPath.row]
         cell.nameLabel.text = testArr[indexPath.row]
-        cell.selectionStyle = .none
+     
         
     
        
@@ -103,10 +120,10 @@ extension AddressTableViewContriller:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let text = "北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路"
+        let text = addressArr![indexPath.row].toWhere
         let font = UIFont.systemFont(ofSize: 12)
         let attr = [NSFontAttributeName:font]
-        let height = autoLabelHeight(with: text, labelWidth: ScreenWidth - 20, attributes: attr)
+        let height = autoLabelHeight(with: text!, labelWidth: ScreenWidth - 20, attributes: attr)
         return 50 + height + 10 + 50
         
     }

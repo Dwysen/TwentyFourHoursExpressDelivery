@@ -54,6 +54,8 @@
 		18CD904C1E79344700AEFB0E /* TFDeliveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */; };
 		18CD904F1E79348700AEFB0E /* TFPersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */; };
 		18CD90501E79348700AEFB0E /* TFPersonDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */; };
+		18E3B0321E7A7208007DAEA2 /* AcceptAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E3B0311E7A7208007DAEA2 /* AcceptAddress.swift */; };
+		18E3B0341E7A83C5007DAEA2 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E3B0331E7A83C5007DAEA2 /* SwiftyJSON.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -107,6 +109,8 @@
 		18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFDeliveryList.swift; sourceTree = "<group>"; };
 		18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonInfo.swift; sourceTree = "<group>"; };
 		18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonDelivery.swift; sourceTree = "<group>"; };
+		18E3B0311E7A7208007DAEA2 /* AcceptAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptAddress.swift; sourceTree = "<group>"; };
+		18E3B0331E7A83C5007DAEA2 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 				184D18C71E67F63200336479 /* Global.swift */,
 				186B721B1E7259B400166B3A /* Validate.swift */,
 				18A196091E768BB800EA3870 /* StringMd5.swift */,
+				18E3B0331E7A83C5007DAEA2 /* SwiftyJSON.swift */,
 				186B72251E72930900166B3A /* ProgressHud */,
 			);
 			name = Tool;
@@ -184,6 +189,7 @@
 		184D18C91E67FC7D00336479 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				18E3B0301E7A71FC007DAEA2 /* M */,
 				184D18BF1E67C07D00336479 /* MeViewController.swift */,
 				181D3BAB1E6FB355005B8E9A /* AdviceViewController.swift */,
 				181D3BA71E6F94E4005B8E9A /* SettingViewController.swift */,
@@ -252,6 +258,14 @@
 				18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */,
 				18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */,
 				18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */,
+			);
+			name = M;
+			sourceTree = "<group>";
+		};
+		18E3B0301E7A71FC007DAEA2 /* M */ = {
+			isa = PBXGroup;
+			children = (
+				18E3B0311E7A7208007DAEA2 /* AcceptAddress.swift */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -361,10 +375,12 @@
 				184D18C21E67C0FC00336479 /* HeadTopView.swift in Sources */,
 				188A0EFE1E6913A200F69F02 /* HomeViewController.swift in Sources */,
 				181D3BAE1E6FC216005B8E9A /* LogisticalDetailViewController.swift in Sources */,
+				18E3B0341E7A83C5007DAEA2 /* SwiftyJSON.swift in Sources */,
 				186B72201E72910100166B3A /* UIResponder+LKBubble.swift in Sources */,
 				184D18AA1E67BEF000336479 /* AppDelegate.swift in Sources */,
 				188A0F021E69206700F69F02 /* NewExpressViewController.swift in Sources */,
 				188A0F041E69444100F69F02 /* HomeButtonView.swift in Sources */,
+				18E3B0321E7A7208007DAEA2 /* AcceptAddress.swift in Sources */,
 				18CD904F1E79348700AEFB0E /* TFPersonInfo.swift in Sources */,
 				188A0F061E69559A00F69F02 /* ExpressHistoryViewController.swift in Sources */,
 				180AEA871E6D1BC600E2DD4E /* TypeTableViewController.swift in Sources */,

@@ -75,13 +75,10 @@ class LoginByPasswordViewController: UIViewController {
     }
     
     
-    func generateToken(sloat:String){
+    func generateToken(sloat:String) -> String{
         
-        let token = ("@" + LoginTextFld.text! + "#" + (passwordTextFld.text! + "$" + sloat).md5()).md5() 
-      
-        //缓存token
-        UserDefaults.standard.set(token, forKey: "token")
-        
+        let token = ("@" + LoginTextFld.text! + "#" + (passwordTextFld.text! + "$" + sloat).md5()).md5()
+        return token
     }
     
     func Login(){
@@ -94,10 +91,16 @@ class LoginByPasswordViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.showRightWithTitle(title: info, autoCloseTime: 0.5)
                     let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as! MeViewController
-                    vc.headTopView.nameLabel.text = "baibai"
+                    vc.headTopView.nameLabel.text = self.LoginTextFld.text!
+                    vc.headTopView.iconButton.isEnabled = false
                     
+                   
+                    let token = self.generateToken(sloat: sloat)
                     UserDefaults.standard.set(self.LoginTextFld.text, forKey: "phone")
-                    self.generateToken(sloat: sloat)
+                    //缓存token
+                    UserDefaults.standard.set(token, forKey: "token")
+                    UserDefaults.standard.set(true, forKey: "isLogin")
+                  
                     _ = self.navigationController?.popViewController(animated: true)
                 }
                 

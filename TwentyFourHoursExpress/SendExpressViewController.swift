@@ -22,6 +22,8 @@ class SendExpressViewController: UIViewController {
     var sendAddressView:UIView!
     var acceptAddressView:UIView!
     
+    
+    
     private var nameField:UITextField!
     private var weightField:UITextField!
      var typeLabel:UILabel!
@@ -38,6 +40,8 @@ class SendExpressViewController: UIViewController {
         setupUI()
         
     }
+    
+    
 
     func setupUI(){
 
@@ -107,21 +111,33 @@ class SendExpressViewController: UIViewController {
         addressBtn.setTitleColor(GreenColor(), for: .normal)
         view.addSubview(addressBtn)
         
+     
+        
         if title == "寄件人"{
             addressIconView.image = UIImage(named: "send")
             sendViewTextView = textView
             addressBtn.addTarget(self, action: #selector(clickSendAddressBtn), for: .touchUpInside)
+            
+            
         }
         if title == "收件人"{
             addressIconView.image = UIImage(named: "accept")
             acceptViewTextView = textView
             addressBtn.addTarget(self, action: #selector(clickAcceptAddressBtn), for: .touchUpInside)
             
+            
+            
+            
         }
         
     }
     func clickSendAddressBtn(){
     
+        guard UserDefaults.standard.bool(forKey: "isLogin") else {
+            showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
+            return
+        }
+        
         let vc = AddressTableViewContriller()
         vc.delegate = self
         vc.type = "Send"
@@ -130,6 +146,11 @@ class SendExpressViewController: UIViewController {
     }
     func clickAcceptAddressBtn(){
     
+        guard UserDefaults.standard.bool(forKey: "isLogin") else {
+            showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
+            return
+        }
+        
         let vc = AddressTableViewContriller()
         vc.delegate = self
         vc.type = "Accept"
@@ -321,6 +342,7 @@ class SendExpressViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
       tabBarController?.tabBar.isHidden = false
+    
     }
 
 }

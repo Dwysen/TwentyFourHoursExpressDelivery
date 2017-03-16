@@ -31,6 +31,8 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         
+        TFNetworkTool.postTest()
+        
         let banner = Banner(frame: CGRect(x: 0, y: navigationH, width: ScreenWidth, height: bannerViewHeight))
         BackScrollView.addSubview(banner)
         view.addSubview(BackScrollView)
@@ -66,7 +68,6 @@ class HomeViewController: UIViewController {
             let buttonW = ScreenWidth / 2
             let buttonView = HomeButtonView(frame: CGRect(x: CGFloat(i).truncatingRemainder(dividingBy: 2) * buttonW, y: 0, width: ScreenWidth / 2, height: 75))
             
-            
             if i > 1
             {
                 buttonView.y = 75
@@ -82,9 +83,6 @@ class HomeViewController: UIViewController {
         BackScrollView.addSubview(bottomView)
     
         currentViewY = bottomView.frame.maxY
-
-        
-      
         
     }
     
@@ -133,7 +131,6 @@ class HomeViewController: UIViewController {
         let vc3 = SearchViewController()
         
         addChildViewController(vc3)
-        
         
     }
     

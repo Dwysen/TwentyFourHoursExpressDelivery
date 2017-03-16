@@ -17,19 +17,31 @@ class AddressCell: UITableViewCell {
     var editBtn : AddressBtn!
     var deleteBtn : AddressBtn!
     
+    var address:AcceptAddress? {
+      
+        didSet{
+        nameLabel.text = address?.toWhom
+        phoneLabel.text = address?.toWhomPhone
+        addressLabel.text = address?.toWhere
+            
+        }
+    
+    }
+    
 
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.selectionStyle = .none
         addSubview(heardView)
         heardView.backgroundColor = BackScrollColor()
         
         addSubview(nameLabel)
-        nameLabel.text = "周杰伦"
+    
         nameLabel.textAlignment = .left
         
         addSubview(phoneLabel)
-        phoneLabel.text = "18888888888"
+  
         phoneLabel.textAlignment = .right
     
         
@@ -41,6 +53,11 @@ class AddressCell: UITableViewCell {
         let attr = [NSFontAttributeName:addressLabel.font]
         let height = autoLabelHeight(with: addressLabel.text!, labelWidth: ScreenWidth - 20, attributes: attr)
         addressLabel.frame = CGRect(x: 10, y: 50, width: ScreenWidth - 20, height: height)
+        
+        let blockView = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 40 + height))
+        blockView.isUserInteractionEnabled = false
+        blockView.backgroundColor = OrangeColor()
+        addSubview(blockView)
         
         
         editBtn = AddressBtn(frame:  CGRect(x: 0, y: 50 + height + 10 , width: ScreenWidth / 2, height: 50), type: "编辑")

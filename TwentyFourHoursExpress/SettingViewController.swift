@@ -41,11 +41,17 @@ class SettingViewController: UIViewController {
         buildView(view: versionView, title: "版本信息", rightSubtitle: true)
         view.addSubview(versionView)
         
-        let LoginOutBtn = UIButton(frame: CGRect(x: 0, y: ScreenHeight - 50, width: ScreenWidth, height: 50))
+        guard UserDefaults.standard.bool(forKey: "isLogin") else {
+            //            LoginOutBtn.isHidden = true
+            return
+        }
+        
+        let LoginOutBtn = UIButton(frame: CGRect(x: 0, y: ScreenHeight - 50 - navigationH, width: ScreenWidth, height: 50))
         LoginOutBtn.setTitle("退出登录", for: .normal)
         LoginOutBtn.setTitleColor(UIColor.white, for: .normal)
         LoginOutBtn.backgroundColor = GreenColor()
         LoginOutBtn.addTarget(self, action: #selector(clickLoginOutBtn), for: .touchUpInside)
+        
         view.addSubview(LoginOutBtn)
         
     }
@@ -53,6 +59,16 @@ class SettingViewController: UIViewController {
     func clickLoginOutBtn(){
     
         print("退出登录")
+        UserDefaults.standard.removeObject(forKey: "phone")
+        UserDefaults.standard.removeObject(forKey: "token")
+        UserDefaults.standard.set(false, forKey: "isLogin")
+    
+        
+        let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as! MeViewController
+        vc.headTopView.nameLabel.text = "点击登录"
+        vc.headTopView.iconButton.isEnabled = true
+        _ = navigationController?.popViewController(animated: true)
+        
     
     }
 

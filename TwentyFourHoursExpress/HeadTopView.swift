@@ -34,7 +34,12 @@ class HeadTopView: UIView {
     /// 懒加载，创建昵称标签
     lazy var nameLabel: UILabel = {
         let nameLabel = UILabel()
-        nameLabel.text = "点击登录"
+        if let phone = UserDefaults.standard.string(forKey: "phone") {
+            nameLabel.text = phone }
+        else {
+            nameLabel.text = "点击登录"
+        }
+        
         nameLabel.textColor = UIColor.white
         nameLabel.font = UIFont.systemFont(ofSize: 15.0)
         nameLabel.textAlignment = .center

@@ -14,9 +14,26 @@ class ClaimTabieViewController: UIViewController {
     var tableView:UITableView!
     var companyArr = ["申通","圆通","快递"]
     var currentClaim:Int?
+    var deliveryArr = [TFPersonDelivery]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        
+        TFNetworkTool.getAllSendExpress { (deliveryArr) in
+            self.deliveryArr = deliveryArr
+            print(deliveryArr.count)
+            
+            DispatchQueue.main.async {
+            self.tableView.reloadData()
+            }
+            
+         
+        }
+        
+        
+     
+        
         navigationController?.isNavigationBarHidden = false
         tabBarController?.tabBar.isHidden = true
         
@@ -72,11 +89,12 @@ extension ClaimTabieViewController:ClickClaimProtocol{
 extension ClaimTabieViewController:UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return companyArr.count
+        return deliveryArr.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = ClaimCell()
+        cell.delivery = deliveryArr[indexPath.row]
         cell.claimBtn.tag = indexPath.row
         cell.claimBtn.addTarget(self, action: #selector(clickClaimBtn(sender: )), for: .touchUpInside)
         cell.claimBtn.tag = indexPath.row
