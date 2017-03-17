@@ -51,6 +51,7 @@
 		18AC65C61E70F16600BF53AA /* LoginByPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */; };
 		18AC65C81E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */; };
 		18AC65CC1E712FD900BF53AA /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */; };
+		18CCA4DE1E7B8D270099E8DC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCA4DD1E7B8D270099E8DC /* MapViewController.swift */; };
 		18CD904C1E79344700AEFB0E /* TFDeliveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */; };
 		18CD904F1E79348700AEFB0E /* TFPersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */; };
 		18CD90501E79348700AEFB0E /* TFPersonDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */; };
@@ -106,6 +107,7 @@
 		18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByPasswordViewController.swift; sourceTree = "<group>"; };
 		18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByIdentifyCodeViewController.swift; sourceTree = "<group>"; };
 		18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		18CCA4DD1E7B8D270099E8DC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFDeliveryList.swift; sourceTree = "<group>"; };
 		18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonInfo.swift; sourceTree = "<group>"; };
 		18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonDelivery.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 			isa = PBXGroup;
 			children = (
 				188A0EFD1E6913A200F69F02 /* HomeViewController.swift */,
+				18CCA4DD1E7B8D270099E8DC /* MapViewController.swift */,
 				181D3BAD1E6FC216005B8E9A /* LogisticalDetailViewController.swift */,
 				181D3BAF1E6FE545005B8E9A /* LogisticalCell.swift */,
 				188A0F031E69444100F69F02 /* HomeButtonView.swift */,
@@ -388,6 +391,7 @@
 				1874D0D31E6E966E006C1416 /* AddressBtn.swift in Sources */,
 				186B72291E729B2700166B3A /* ClaimCell.swift in Sources */,
 				184D18C61E67F23000336479 /* MeButton.swift in Sources */,
+				18CCA4DE1E7B8D270099E8DC /* MapViewController.swift in Sources */,
 				184D18C81E67F63200336479 /* Global.swift in Sources */,
 				181D3BB51E700532005B8E9A /* RegisterViewController.swift in Sources */,
 			);

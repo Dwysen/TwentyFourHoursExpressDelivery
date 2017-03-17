@@ -18,6 +18,12 @@ class ClaimTabieViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor.white
+        
+        let backgroundLabel = UILabel(frame: CGRect(x: ScreenWidth / 2 - 50, y: 200, width: 100, height: 50))
+        backgroundLabel.text = "暂无地址"
+        backgroundLabel.textAlignment = .center
+        view.addSubview(backgroundLabel)
         
         
         TFNetworkTool.getAllSendExpress { (deliveryArr) in
@@ -25,7 +31,12 @@ class ClaimTabieViewController: UIViewController {
             print(deliveryArr.count)
             
             DispatchQueue.main.async {
-            self.tableView.reloadData()
+                
+                self.tableView = UITableView(frame: CGRect(x: 0, y: navigationH, width: ScreenWidth, height: ScreenHeight))
+                self.tableView.dataSource = self
+                self.tableView.delegate = self
+                
+                self.view.addSubview(self.tableView)
             }
             
          
@@ -39,12 +50,7 @@ class ClaimTabieViewController: UIViewController {
         
         title = "我的快递"
         
-        
-        tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight))
-        tableView.dataSource = self
-        tableView.delegate = self
-        
-        view.addSubview(tableView)
+ 
         
  
         
@@ -98,7 +104,7 @@ extension ClaimTabieViewController:UITableViewDataSource {
         cell.claimBtn.tag = indexPath.row
         cell.claimBtn.addTarget(self, action: #selector(clickClaimBtn(sender: )), for: .touchUpInside)
         cell.claimBtn.tag = indexPath.row
-        cell.companyLabel.text = companyArr[indexPath.row]
+//        cell.companyLabel.text = companyArr[indexPath.row] 
         return cell
     }
 

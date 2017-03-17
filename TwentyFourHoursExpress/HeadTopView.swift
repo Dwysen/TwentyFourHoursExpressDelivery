@@ -25,6 +25,11 @@ class HeadTopView: UIView {
     /// 懒加载，创建头像按钮
     lazy var iconButton: UIButton = {
         let iconButton = UIButton()
+        
+        if UserDefaults.standard.bool(forKey: "isLogin") {
+            iconButton.isEnabled = false
+        }
+        
         iconButton.setBackgroundImage(UIImage(named: "Me_AvatarPlaceholder_75x75_"), for: UIControlState())
         iconButton.layer.cornerRadius = iconButton.width * 0.5
         iconButton.layer.masksToBounds = true

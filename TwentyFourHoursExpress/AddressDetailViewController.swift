@@ -11,10 +11,13 @@ import UIKit
 class AddressDetailViewController: UIViewController {
 
     private var phoneField:UITextField!
-    private var addressField:UITextField!
+    private var addressView:UITextView!
     private var nameField:UITextField!
     
+    
     var placeholderLabel:UILabel!
+    
+    var type = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +40,7 @@ class AddressDetailViewController: UIViewController {
         buildInputView(view: phoneView, title: "电话", placeholder: "请输入电话")
         view.addSubview(phoneView)
         
-        let addressView = UITextView(frame: CGRect(x: 10, y: 10  + 100, width: ScreenWidth, height: 200))
+        addressView = UITextView(frame: CGRect(x: 10, y: 10  + 100, width: ScreenWidth, height: 200))
         addressView.font = UIFont.systemFont(ofSize: 13)
         addressView.textColor = TitleGrayColor()
         addressView.delegate = self
@@ -55,7 +58,36 @@ class AddressDetailViewController: UIViewController {
     }
 
     func save(){
-       _ = navigationController?.popViewController(animated: true)
+        
+        if type == "New" {
+        
+            let vc = navigationController?.viewControllers[(navigationController?.viewControllers.count)! - 2] as! AddressTableViewContriller
+            var addressArr = vc.addressArr
+         
+            
+            print(nameField.text!)
+            print(addressView.text!)
+            print(phoneField.text!)
+            
+            let dict = ["to_whom":"\(nameField.text!)","to_whom_phone":"\(phoneField.text!)","to_where":"\(addressView.text!)"]
+            let address = AcceptAddress(fromDictionary: dict as NSDictionary)
+ 
+            addressArr.append(address)
+            
+            _ = navigationController?.popViewController(animated: true)
+            
+            // TO DO
+            
+            let tableView = vc.tableView
+            tableView?.reloadData()
+            
+            
+            
+        
+            
+        }
+        
+   
     }
     
     override func didReceiveMemoryWarning() {
@@ -79,9 +111,9 @@ class AddressDetailViewController: UIViewController {
         if title == "电话"{
             phoneField = textField
         }
-        if title == "地址"{
-            addressField = textField
-        }
+//        if title == "地址"{
+//            addressTextView = textField
+//        }
         
         
         

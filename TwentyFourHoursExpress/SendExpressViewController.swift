@@ -19,8 +19,13 @@ class SendExpressViewController: UIViewController {
     var sendViewTextView:UITextView!
     var acceptViewTextView:UITextView!
     
+    var sendViewPlaceholderLabel:UILabel!
+    var acceptViewPlaceholderLabel:UILabel!
+    
     var sendAddressView:UIView!
     var acceptAddressView:UIView!
+    
+    
     
     
     
@@ -102,9 +107,17 @@ class SendExpressViewController: UIViewController {
         
         let textView = UITextView(frame: CGRect(x: 50, y: 10, width: ScreenWidth - 50 - 80, height: 80))
         textView.font = UIFont.systemFont(ofSize: addressFontSize)
-        textView.text = "HaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHaHa"
+        textView.text = ""
+        textView.delegate = self
 //        textView.placeholder = title 
         view.addSubview(textView)
+        
+        let placeholderLabel = UILabel(frame: CGRect(x: 55, y: 45, width: 100, height: 10))
+        placeholderLabel.text = "请输入地址"
+        placeholderLabel.textColor = TitleGrayColor()
+        view.addSubview(placeholderLabel)
+        
+        
         
         let addressBtn = UIButton(frame:CGRect(x: ScreenWidth - 80, y: 40, width: 80, height: 20))
         addressBtn.setTitle("地址簿", for: .normal)
@@ -115,6 +128,7 @@ class SendExpressViewController: UIViewController {
         
         if title == "寄件人"{
             addressIconView.image = UIImage(named: "send")
+            sendViewPlaceholderLabel = placeholderLabel
             sendViewTextView = textView
             addressBtn.addTarget(self, action: #selector(clickSendAddressBtn), for: .touchUpInside)
             
@@ -122,11 +136,9 @@ class SendExpressViewController: UIViewController {
         }
         if title == "收件人"{
             addressIconView.image = UIImage(named: "accept")
+            acceptViewPlaceholderLabel = placeholderLabel
             acceptViewTextView = textView
             addressBtn.addTarget(self, action: #selector(clickAcceptAddressBtn), for: .touchUpInside)
-            
-            
-            
             
         }
         
@@ -140,6 +152,7 @@ class SendExpressViewController: UIViewController {
         
         let vc = AddressTableViewContriller()
         vc.delegate = self
+//        vc.resourse = "SendExpressViewController" 
         vc.type = "Send"
         navigationController?.pushViewController(vc, animated: true)
     
@@ -153,6 +166,7 @@ class SendExpressViewController: UIViewController {
         
         let vc = AddressTableViewContriller()
         vc.delegate = self
+//        vc.resourse = "SendExpressViewController" 
         vc.type = "Accept"
         navigationController?.pushViewController(vc, animated: true)
     
@@ -347,6 +361,52 @@ class SendExpressViewController: UIViewController {
 
 }
 
+extension SendExpressViewController:UITextViewDelegate{
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        if textView == sendViewTextView {
+            sendViewPlaceholderLabel.isHidden = true
+        }
+        
+        if textView == acceptViewTextView {
+            acceptViewPlaceholderLabel.isHidden = true
+        }
+        
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        
+        if textView == sendViewTextView {
+            if textView.text == "" {
+                sendViewPlaceholderLabel.isHidden = false
+            }
+        }
+        
+        if textView == acceptViewTextView {
+            if textView.text == "" {
+                acceptViewPlaceholderLabel.isHidden = false
+            }
+        }
+    }
+}
+
+//    func textViewDidChange(_ textView: UITextView) {
+//        
+//
+//        
+//    }
+//    
+//}
+//    
+//    func textViewDidEndEditing(_ textView: UITextView) {
+//        
+//
+//    
+//}
+
+
+
 extension SendExpressViewController:passTypeDelegate{
 
     func passType(type: String,title:String) {
@@ -371,10 +431,14 @@ extension SendExpressViewController:passAddressDelegate{
 //        
 //    }
     
-    func passAddress(address: String) {
+    func passAddress(address: String,type:String) {
         
+        if type == "Send" {
+        sendViewTextView.text = address
+        } else {
         acceptViewTextView.text = address
-        
+        }
+
     }
 
 }

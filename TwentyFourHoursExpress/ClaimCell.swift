@@ -23,7 +23,7 @@ class ClaimCell: UITableViewCell {
         didSet{
             companyLabel.text = delivery?.deliveryType
             IDLabel.text = delivery?.deliveryNum
-            expressTypeLabel.text = delivery.debugDescription
+            expressTypeLabel.text = "书"
             
         }
     

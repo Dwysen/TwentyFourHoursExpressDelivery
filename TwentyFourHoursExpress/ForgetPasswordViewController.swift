@@ -175,6 +175,13 @@ class ForgetPasswordViewController: UIViewController {
     
     func clickGetIdentifyCodeBtn(){
         
+        let isPhone = Validate.phoneNum(phoneTextFid.text!).isRight
+        
+        guard isPhone else {
+            showErrorWithTitle(title: "手机格式错误", autoCloseTime: 0.5)
+            return
+        }
+        
         TFNetworkTool.getIdentifyCode(phone: phoneTextFid.text!, finished: { (status, code) in
             
             if status == 200 {

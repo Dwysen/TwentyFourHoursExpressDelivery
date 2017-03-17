@@ -47,6 +47,8 @@ func autoLabelHeight(with text:String , labelWidth: CGFloat ,attributes : [Strin
     return size.size.height
 }
 
+
+
 // 验证是否是手机号
 func isTelNumber(num:NSString)->Bool
 {

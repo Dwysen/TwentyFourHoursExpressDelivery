@@ -16,7 +16,11 @@ class LoginByIdentifyCodeViewController: UIViewController {
     
     private var IdentifyCodeIsRight = false
     private var LoginNumOK = false
+    
+    private var getIdentifyCodeBtn:UIButton!
     private var loginBtn : UIButton!
+    
+    private var identifyCode = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,6 +48,44 @@ class LoginByIdentifyCodeViewController: UIViewController {
         loginBtn.layer.cornerRadius = 5
         loginBtn.layer.masksToBounds = true
         view.addSubview(loginBtn)
+        
+        loginBtn.addTarget(self, action: #selector(Login), for: .touchUpInside)
+    }
+    
+    
+    func Login(){
+    
+        guard IdentifyTextFld.text == identifyCode else {
+            showErrorWithTitle(title: "验证码错误", autoCloseTime: 0.5)
+            return
+        }
+        
+        TFNetworkTool.LoginWithIdentify(phone: LoginTextFld.text!, code: IdentifyTextFld.text!) { (response) in
+            
+            //登录成功
+          
+                DispatchQueue.main.async {
+                    self.showRightWithTitle(title: "登录成功", autoCloseTime: 0.5)
+                    let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as! MeViewController
+                    vc.headTopView.nameLabel.text = self.LoginTextFld.text!
+                    vc.headTopView.iconButton.isEnabled = false
+                    
+                    
+                    let token = response["token"]
+                    UserDefaults.standard.set(self.LoginTextFld.text, forKey: "phone")
+                    //缓存token
+                    UserDefaults.standard.set(token, forKey: "token")
+                    UserDefaults.standard.set(true, forKey: "isLogin")
+                    
+                    _ = self.navigationController?.popViewController(animated: true)
+                }
+            
+            }
+        
+        
+        
+        
+    
     }
     
     func buildView(View:UIView,imageName:String,placeholder:String){
@@ -81,7 +123,7 @@ class LoginByIdentifyCodeViewController: UIViewController {
         }
         
         if placeholder == "请输入验证码" {
-            let getIdentifyCodeBtn = UIButton(frame: CGRect(x: View.width - 80, y: 15, width: 75, height: 20))
+            getIdentifyCodeBtn = UIButton(frame: CGRect(x: View.width - 80, y: 15, width: 75, height: 20))
             getIdentifyCodeBtn.layer.cornerRadius = 5
             getIdentifyCodeBtn.layer.masksToBounds = true
             getIdentifyCodeBtn.setTitle("点击获取", for: .normal)
@@ -89,6 +131,8 @@ class LoginByIdentifyCodeViewController: UIViewController {
             getIdentifyCodeBtn.backgroundColor = GreenColor()
             getIdentifyCodeBtn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
             View.addSubview(getIdentifyCodeBtn)
+            
+            getIdentifyCodeBtn.addTarget(self, action: #selector(clickGetIdentifyCodeBtn), for: .touchUpInside)
             
             TextFld.tag = 2
             IdentifyTextFld = TextFld
@@ -100,7 +144,26 @@ class LoginByIdentifyCodeViewController: UIViewController {
         
         
     }
-    
+    // 获取验证码
+    func clickGetIdentifyCodeBtn(){
+        
+        let isPhone = Validate.phoneNum(LoginTextFld.text!).isRight
+        
+        guard isPhone else {
+            showErrorWithTitle(title: "手机格式错误", autoCloseTime: 0.5)
+            return
+        }
+        
+        TFNetworkTool.getIdentifyCode(phone: LoginTextFld.text!, finished: { (status, code) in
+            
+            if status == 200 {
+                
+                self.identifyCode = code
+                
+            }
+        })
+    }
+    // 清除登录框
     func clickCleanBtn(){
         
         LoginTextFld.text = ""
@@ -120,6 +183,7 @@ class LoginByIdentifyCodeViewController: UIViewController {
         if sender.tag == 1 {
             LoginNumOK = Validate.phoneNum(sender.text!).isRight
         }
+        
         
         if sender.tag == 2 {
             

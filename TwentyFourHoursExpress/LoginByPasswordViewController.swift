@@ -83,7 +83,7 @@ class LoginByPasswordViewController: UIViewController {
     
     func Login(){
 
-        TFNetworkTool.LoginWithURLSession(phone: LoginTextFld.text!, pwd: passwordTextFld.text!) {  (code, info, sloat) in
+        TFNetworkTool.LoginWithPassword(phone: LoginTextFld.text!, pwd: passwordTextFld.text!) {  (code, info, sloat) in
             
             //成功
             if code == 200 {

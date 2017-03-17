@@ -10,7 +10,7 @@ import UIKit
 
 class HomeButtonView: UIView {
 
-    private var ImageView = UIImageView()
+    var ImageView = UIImageView()
     private var titleLabel = UILabel()
     private var subTitleLabel = UILabel()
    

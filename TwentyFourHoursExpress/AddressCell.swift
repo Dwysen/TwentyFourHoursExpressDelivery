@@ -28,7 +28,6 @@ class AddressCell: UITableViewCell {
     
     }
     
-
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
@@ -53,12 +52,6 @@ class AddressCell: UITableViewCell {
         let attr = [NSFontAttributeName:addressLabel.font]
         let height = autoLabelHeight(with: addressLabel.text!, labelWidth: ScreenWidth - 20, attributes: attr)
         addressLabel.frame = CGRect(x: 10, y: 50, width: ScreenWidth - 20, height: height)
-        
-        let blockView = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: 40 + height))
-        blockView.isUserInteractionEnabled = false
-        blockView.backgroundColor = OrangeColor()
-        addSubview(blockView)
-        
         
         editBtn = AddressBtn(frame:  CGRect(x: 0, y: 50 + height + 10 , width: ScreenWidth / 2, height: 50), type: "编辑")
 //        editBtn.frame = CGRect(x: 0, y: 50 + height + 10 , width: ScreenWidth / 2, height: 50)

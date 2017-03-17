@@ -31,7 +31,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         
-        TFNetworkTool.postTest()
+    
         
         let banner = Banner(frame: CGRect(x: 0, y: navigationH, width: ScreenWidth, height: bannerViewHeight))
         BackScrollView.addSubview(banner)
@@ -66,7 +66,12 @@ class HomeViewController: UIViewController {
         for i in 0..<6 {
             
             let buttonW = ScreenWidth / 2
+            
             let buttonView = HomeButtonView(frame: CGRect(x: CGFloat(i).truncatingRemainder(dividingBy: 2) * buttonW, y: 0, width: ScreenWidth / 2, height: 75))
+            buttonView.tag = i
+            
+            let tap = UITapGestureRecognizer(target: self, action: #selector(clickButtonView(sender:)))
+            buttonView.addGestureRecognizer(tap)
             
             if i > 1
             {
@@ -83,6 +88,27 @@ class HomeViewController: UIViewController {
         BackScrollView.addSubview(bottomView)
     
         currentViewY = bottomView.frame.maxY
+        
+    }
+    
+    func clickButtonView(sender:UIGestureRecognizer){
+ 
+        if sender.view!.tag == 1 {
+            
+            TFNetworkTool.postTest()
+            
+        }
+        
+        if sender.view!.tag == 2 {
+            
+            let vc = MapViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            
+        }
+        
+
+        
+  
         
     }
     
@@ -116,7 +142,6 @@ class HomeViewController: UIViewController {
         currentViewY = claimView.y + 50 + screenMargin
         
     }
-    
     
     private func addChildVc(){
         

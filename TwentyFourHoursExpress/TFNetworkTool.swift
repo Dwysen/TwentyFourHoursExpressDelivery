@@ -39,7 +39,9 @@ class TFNetworkTool:NSObject {
         task.resume()
     }
     
-    class func LoginWithURLSession(phone:String,pwd:String,finished:@escaping (_ code:Int, _ info:String, _ sloat:String) -> ()){
+    // 用户名 密码 登录
+    
+    class func LoginWithPassword(phone:String,pwd:String,finished:@escaping (_ code:Int, _ info:String, _ sloat:String) -> ()){
         
         let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/checkLogin")
 
@@ -52,6 +54,8 @@ class TFNetworkTool:NSObject {
         let task = session.dataTask(with: request) { (data, response, error) in
             if data != nil {
                 let responseObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
+                
+                print(responseObject)
                 
                 guard responseObject != nil else{
                  
@@ -68,13 +72,50 @@ class TFNetworkTool:NSObject {
                 }  else {
                     finished(status,info,"sloat is nil")
                 }
-                
-                
-               
-                
-                
-                
             }
+            else {
+                print("data == nil")
+            }
+        }
+        task.resume()
+    }
+    
+    
+    // 用户名 密码 登录
+    
+    class func LoginWithIdentify(phone:String,code:String,finished:@escaping (_ response:[String:Any]) -> ()){
+        
+        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/phoneCodeLogin")
+        
+        let session = URLSession.shared
+        var request = URLRequest(url: url!)
+        request.httpMethod = "POST"
+        
+        print(phone)
+        print(code)
+        
+        request.httpBody = "phone=\(phone)&code=\(code)".data(using: String.Encoding.utf8)
+        
+        let task = session.dataTask(with: request) { (data, response, error) in
+            
+            if data != nil {
+                let responseObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
+                
+                print(responseObject)
+                
+                guard responseObject != nil else{
+                    return
+                }
+                
+                let status = responseObject?["status"] as! Int
+                
+                if status == 200 {
+                    finished(responseObject!)
+                }  else {
+                    return
+                }
+            }
+                
             else {
                 print("data == nil")
             }
@@ -103,6 +144,8 @@ class TFNetworkTool:NSObject {
                 guard responseObject != nil else{
                     return
                 }
+                
+                print(responseObject)
                 
                 let status = responseObject?["status"] as! Int
          
@@ -146,8 +189,13 @@ class TFNetworkTool:NSObject {
                 guard responseObject != nil else{
                     return
                 }
+                
+                print(responseObject)
+                
                 let status = responseObject?["status"] as! Int
                 let code = responseObject?["code"] as! String
+                
+                print(code)
                 
                 finished(status, code)
                 
@@ -163,13 +211,16 @@ class TFNetworkTool:NSObject {
     
     class func postTest(){
         
-        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/delivery/tempDeliveryInfo")
+        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/updateUserToAddr")
         var request = URLRequest(url: url!)
         
-        let params = ["data":["phone":"18612038633","addr":"北京","desc":"北京大望路","time":"2017-11-13"]]
-        let jsondata = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+        let phone = UserDefaults.standard.string(forKey: "phone")
+        let token = UserDefaults.standard.string(forKey: "token")
+        
+        let params:[String:Any] = ["phone":"\(phone!)","token":"\(token!)","data":["phone":"18612038633","addr":"北京","desc":"北京大望路","time":"2017-11-13"]]
+        let jsonData = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
         request.httpMethod = "POST"
-        request.httpBody = jsondata
+        request.httpBody = jsonData
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.addValue("application/json", forHTTPHeaderField: "Accept")
 
@@ -240,6 +291,11 @@ class TFNetworkTool:NSObject {
                 print(responseObject ?? 0)
 
                 let status = responseObject?["status"] as! Int
+                
+                guard status == 200 else {
+                    return
+                }
+                
                 let personDeliveryarr = responseObject?["personDelivery"] as! [Any]
                 var deliveryArr = [TFPersonDelivery]()
                 for item in personDeliveryarr{
@@ -252,6 +308,7 @@ class TFNetworkTool:NSObject {
 //                let info = responseObject?["info"] as! String 
                 
                 finished(deliveryArr)
+                
                 
             }
             else {
