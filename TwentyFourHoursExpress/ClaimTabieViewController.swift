@@ -12,48 +12,48 @@ class ClaimTabieViewController: UIViewController {
 
     
     var tableView:UITableView!
-    var companyArr = ["申通","圆通","快递"]
+    
     var currentClaim:Int?
     var deliveryArr = [TFPersonDelivery]()
+    
+    var backgroundLabel:UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         
-        let backgroundLabel = UILabel(frame: CGRect(x: ScreenWidth / 2 - 50, y: 200, width: 100, height: 50))
-        backgroundLabel.text = "暂无地址"
+        backgroundLabel = UILabel(frame: CGRect(x: ScreenWidth / 2 - 50, y: 200, width: 100, height: 50))
+        backgroundLabel.text = "努力刷新中..."
+        backgroundLabel.textColor = TitleGrayColor()
         backgroundLabel.textAlignment = .center
         view.addSubview(backgroundLabel)
         
         
         TFNetworkTool.getAllSendExpress { (deliveryArr) in
+            
+            guard deliveryArr.count != 0 else {
+                self.backgroundLabel.text = "暂无快递信息"
+                return
+            }
+            
             self.deliveryArr = deliveryArr
-            print(deliveryArr.count)
             
             DispatchQueue.main.async {
+                
+                self.backgroundLabel.isHidden = true
                 
                 self.tableView = UITableView(frame: CGRect(x: 0, y: navigationH, width: ScreenWidth, height: ScreenHeight))
                 self.tableView.dataSource = self
                 self.tableView.delegate = self
-                
                 self.view.addSubview(self.tableView)
             }
             
-         
         }
-        
-        
-     
         
         navigationController?.isNavigationBarHidden = false
         tabBarController?.tabBar.isHidden = true
         
         title = "我的快递"
-        
- 
-        
- 
-        
 
     }
 
@@ -124,9 +124,18 @@ extension ClaimTabieViewController:UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            companyArr.remove(at: indexPath.row)
+            deliveryArr.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .right)
+            
+            if deliveryArr.count == 0 {
+            
+                tableView.isHidden = true
+                let emptyLabel = UILabel(frame: CGRect(x: ScreenWidth / 2 - 100, y: 200, width: 200, height: 10))
+                emptyLabel.textAlignment = .center
+                emptyLabel.text = "暂无快递信息"
+                view.addSubview(emptyLabel)
+                
+            }
         }
     }
-    
 }

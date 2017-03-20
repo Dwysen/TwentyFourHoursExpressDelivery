@@ -22,21 +22,23 @@ struct AcceptAddress{
 	 * 用NSDictionary来初始化实例，并设置各属性值。
 	 */
 	init(fromDictionary dictionary: NSDictionary){
-		clientId = dictionary["client_id"] as? String
-		id = dictionary["id"] as? String
-		isDefalut = dictionary["is_defalut"] as? String
-		toDistrictCode = dictionary["to_district_code"] as? String
+//		clientId = dictionary["client_id"] as? String
+//		id = dictionary["id"] as? String
+//		isDefalut = dictionary["is_defalut"] as? String
+//		toDistrictCode = dictionary["to_district_code"] as? String
 		toWhere = dictionary["to_where"] as? String
 		toWhom = dictionary["to_whom"] as? String
-		toWhomPhone = dictionary["to_whom_phone"] as? String
+		toWhomPhone = dictionary["receiver_phone"] as? String
 	}
+    
+
 
 	/**
 	 * 返回一个包含所有属性值的NSDictionary对象，KEY是对应的属性名。
 	 */
 	func toDictionary() -> NSDictionary
 	{
-		var dictionary = NSMutableDictionary()
+		let dictionary = NSMutableDictionary()
 		if clientId != nil{
 			dictionary["client_id"] = clientId
 		}

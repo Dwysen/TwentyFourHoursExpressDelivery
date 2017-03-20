@@ -152,8 +152,8 @@ class SendExpressViewController: UIViewController {
         
         let vc = AddressTableViewContriller()
         vc.delegate = self
-//        vc.resourse = "SendExpressViewController" 
-        vc.type = "Send"
+        vc.resourse = "SendExpressViewController" 
+     
         navigationController?.pushViewController(vc, animated: true)
     
     }
@@ -166,8 +166,8 @@ class SendExpressViewController: UIViewController {
         
         let vc = AddressTableViewContriller()
         vc.delegate = self
-//        vc.resourse = "SendExpressViewController" 
-        vc.type = "Accept"
+        vc.resourse = "AcceptExpressViewController"
+
         navigationController?.pushViewController(vc, animated: true)
     
     }
@@ -431,11 +431,13 @@ extension SendExpressViewController:passAddressDelegate{
 //        
 //    }
     
-    func passAddress(address: String,type:String) {
+    func passAddress(address: String,resourse:String) {
         
-        if type == "Send" {
+        if resourse == "SendExpressViewController" {
+        sendViewPlaceholderLabel.isHidden = true
         sendViewTextView.text = address
         } else {
+        acceptViewPlaceholderLabel.isHidden = true
         acceptViewTextView.text = address
         }
 

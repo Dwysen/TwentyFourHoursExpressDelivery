@@ -150,6 +150,7 @@ class TFNetworkTool:NSObject {
                 let status = responseObject?["status"] as! Int
          
                 guard status == 200 else{
+
                     return
                 }
                 
@@ -160,9 +161,6 @@ class TFNetworkTool:NSObject {
                     addressArr.append(address)
                     
                 }
-
-              
-           
                 finished(addressArr)
             }
             else {
@@ -207,7 +205,7 @@ class TFNetworkTool:NSObject {
         task.resume()
     }
     
-    // 获取验证码
+    
     
     class func postTest(){
         
@@ -248,6 +246,47 @@ class TFNetworkTool:NSObject {
         task.resume()
         
     }
+    
+    class func AddNewAddress(){
+        
+        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/updateUserToAddr")
+        var request = URLRequest(url: url!)
+        
+        let phone = UserDefaults.standard.string(forKey: "phone")
+        let token = UserDefaults.standard.string(forKey: "token")
+        
+        let params:[String:Any] = ["phone":"\(phone!)","token":"\(token!)","data":["to_whom":"Haha","to_where":"北京","receiver_phone":"18612038633"]]
+        let jsonData = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if data != nil {
+                
+                print("data != nil")
+                
+                let responseObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
+                print(responseObject ?? 0)
+                
+                guard responseObject != nil else{
+                    return
+                }
+                //                let status = responseObject?["status"] as! Int
+                //                let code = responseObject?["code"] as! String
+            }
+            else {
+                print("data == nil")
+            }
+            
+        }
+        
+        task.resume()
+        
+    }
+
     
     
 //    class func getResponseObject(request:URLRequest ) -> [String:Any]{

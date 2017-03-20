@@ -81,7 +81,7 @@ extension UIResponder{
     func showRightWithTitle(title: String , autoCloseTime: CGFloat) -> Void {
         let info: LKBubbleInfo = self.getDefaultRightBubbleInfo()
         info.title = title
-        LKBubbleView.defaultBubbleView().showWithinfo(info: info, autoCloseTime: 3)
+        LKBubbleView.defaultBubbleView().showWithinfo(info: info, autoCloseTime: autoCloseTime)
     }
     
     /// 获取默认的显示加载中的泡泡信息对象，可以在此基础之上自定义
