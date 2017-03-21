@@ -25,29 +25,23 @@ class SendExpressViewController: UIViewController {
     var sendAddressView:UIView!
     var acceptAddressView:UIView!
     
-    
-    
-    
-    
     private var nameField:UITextField!
     private var weightField:UITextField!
-     var typeLabel:UILabel!
-     var timeLabel:UILabel!
-     var companyLabel:UILabel!
+    
+    var typeLabel:UILabel!
+    var timeLabel:UILabel!
+    var companyLabel:UILabel!
+    
     private var remarkTextField:UITextField!
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+        super.viewDidLoad()
         navigationController?.navigationBar.isTranslucent = false
-//        tabBarController?.tabBar.isTranslucent = false
-      
         view.backgroundColor = UIColor.white
         setupUI()
         
     }
     
-    
-
     func setupUI(){
 
         setupTopView()
@@ -58,13 +52,10 @@ class SendExpressViewController: UIViewController {
     
     private func setupTopView(){
         
-    
         BackScrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - tabbarH - navigationH))
         BackScrollView.contentSize = CGSize(width: ScreenWidth, height: lineViewHeight * 2 + addressViewHeight + 314 + 30)
         view.addSubview(BackScrollView)
       
-        
-        
         // 顶部线
         let topLineView = UIView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: lineViewHeight))
         topLineView.backgroundColor = BackScrollColor()
@@ -124,16 +115,15 @@ class SendExpressViewController: UIViewController {
         addressBtn.setTitleColor(GreenColor(), for: .normal)
         view.addSubview(addressBtn)
         
-     
-        
+
         if title == "寄件人"{
             addressIconView.image = UIImage(named: "send")
             sendViewPlaceholderLabel = placeholderLabel
             sendViewTextView = textView
             addressBtn.addTarget(self, action: #selector(clickSendAddressBtn), for: .touchUpInside)
             
-            
         }
+        
         if title == "收件人"{
             addressIconView.image = UIImage(named: "accept")
             acceptViewPlaceholderLabel = placeholderLabel
@@ -212,7 +202,6 @@ class SendExpressViewController: UIViewController {
         
         bottomView.addSubview(remarkView)
         
-        
         let btn = UIButton(frame: CGRect(x: ScreenWidth / 2 - 75, y: 284, width: 150, height: 30))
             btn.setTitle("确定", for: .normal)
         btn.setTitleColor(UIColor.white, for: .normal)
@@ -223,8 +212,6 @@ class SendExpressViewController: UIViewController {
         bottomView.addSubview(btn)
   
     }
-    
-    
     
     private func buildInputView(view:UIView,title:String,placeholder:String,nessary:Bool,rightSubLabel:Bool){
         //必填
@@ -337,7 +324,6 @@ class SendExpressViewController: UIViewController {
     
     func ensureBtnClick(){
 
-
 //        print(sendViewTextField.text!)
 //        print(acceptViewTextField.text!)
 //        print(nameField.text!)
@@ -346,19 +332,12 @@ class SendExpressViewController: UIViewController {
 //        print(timeLabel.text!)
 //        print(companyLabel.text!)
         
-
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     override func viewWillAppear(_ animated: Bool) {
       tabBarController?.tabBar.isHidden = false
     
     }
-
 }
 
 extension SendExpressViewController:UITextViewDelegate{
@@ -391,22 +370,6 @@ extension SendExpressViewController:UITextViewDelegate{
     }
 }
 
-//    func textViewDidChange(_ textView: UITextView) {
-//        
-//
-//        
-//    }
-//    
-//}
-//    
-//    func textViewDidEndEditing(_ textView: UITextView) {
-//        
-//
-//    
-//}
-
-
-
 extension SendExpressViewController:passTypeDelegate{
 
     func passType(type: String,title:String) {
@@ -424,23 +387,16 @@ extension SendExpressViewController:passTypeDelegate{
 
 extension SendExpressViewController:passAddressDelegate{
 
-//    func passAddress(address: String) {
-//        let attr = [NSFontAttributeName:UIFont.systemFont(ofSize: addressFontSize)]
-//        let height = autoLabelHeight(with: address, labelWidth: ScreenWidth - 50 - 80, attributes: attr)
-//        print(height)
-//        
-//    }
-    
     func passAddress(address: String,resourse:String) {
         
         if resourse == "SendExpressViewController" {
         sendViewPlaceholderLabel.isHidden = true
         sendViewTextView.text = address
+            
         } else {
         acceptViewPlaceholderLabel.isHidden = true
         acceptViewTextView.text = address
         }
-
+        
     }
-
 }

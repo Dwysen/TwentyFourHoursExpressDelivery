@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TwentyFourHoursExpress/SendExpressViewController.swift"
-            timestampString = "511690420.506895"
+            filePath = "TwentyFourHoursExpress/AddressTableViewContriller.swift"
+            timestampString = "511781167.611496"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "436"
-            endingLineNumber = "436"
-            landmarkName = "passAddress(address:resourse:)"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "clickEditRow(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "TwentyFourHoursExpress/SendExpressViewController.swift"
-            timestampString = "511690504.281465"
+            filePath = "TwentyFourHoursExpress/AddressTableViewContriller.swift"
+            timestampString = "511781167.611496"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "439"
-            endingLineNumber = "439"
-            landmarkName = "passAddress(address:resourse:)"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
+            landmarkName = "clickEditRow(sender:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

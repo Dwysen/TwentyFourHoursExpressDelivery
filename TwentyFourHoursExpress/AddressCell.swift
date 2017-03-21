@@ -17,16 +17,28 @@ class AddressCell: UITableViewCell {
     var editBtn : AddressBtn!
     var deleteBtn : AddressBtn!
     
-    var address:AcceptAddress? {
+    var accpetAddress:AcceptAddress? {
       
         didSet{
-        nameLabel.text = address?.toWhom
-        phoneLabel.text = address?.toWhomPhone
-        addressLabel.text = address?.toWhere
+        nameLabel.text = accpetAddress?.toWhom
+        phoneLabel.text = accpetAddress?.toWhomPhone
+        addressLabel.text = accpetAddress?.toWhere
             
         }
     
     }
+    
+    var sendAddress:SendAddress? {
+        
+        didSet{
+            nameLabel.text = sendAddress?.fromWhom
+            phoneLabel.text = sendAddress?.fromWhomPhone
+            addressLabel.text = sendAddress?.fromWhere
+            
+        }
+        
+    }
+    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -43,7 +55,6 @@ class AddressCell: UITableViewCell {
   
         phoneLabel.textAlignment = .right
     
-        
         addSubview(addressLabel)
         addressLabel.text = "北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路北京大望路"
         addressLabel.textColor = TitleGrayColor()
@@ -69,8 +80,6 @@ class AddressCell: UITableViewCell {
         
     }
     
-    
-
     override func layoutSubviews() {
         heardView.frame = CGRect(x: 0, y: 0, width: ScreenWidth, height: 10)
         nameLabel.frame = CGRect(x: 10, y: 20, width: 100, height: 20)

@@ -26,12 +26,9 @@ class HomeViewController: UIViewController {
     private var contentView = UIScrollView()
     private var claimView = UIView()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
-        
-    
         
         let banner = Banner(frame: CGRect(x: 0, y: navigationH, width: ScreenWidth, height: bannerViewHeight))
         BackScrollView.addSubview(banner)
@@ -61,7 +58,6 @@ class HomeViewController: UIViewController {
         
         let bottomView = UIView(frame: CGRect(x: 0, y: currentViewY, width: ScreenWidth, height: 225))
         bottomView.backgroundColor = UIColor.white
-        
         
         for i in 0..<6 {
             
@@ -105,11 +101,6 @@ class HomeViewController: UIViewController {
             navigationController?.pushViewController(vc, animated: true)
             
         }
-        
-
-        
-  
-        
     }
     
     private func setupClaimView(){
@@ -246,15 +237,11 @@ class HomeViewController: UIViewController {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
     
     fileprivate lazy var BackScrollView:UIScrollView = {
         
         let scrollView = UIScrollView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - tabbarH))
-        
         scrollView.isScrollEnabled = true
         return scrollView
         
@@ -286,6 +273,4 @@ extension HomeViewController:UIScrollViewDelegate {
         let button = titlesView.subviews[index] as! UIButton
         titlesClick(button)
     }
-    
 }
-

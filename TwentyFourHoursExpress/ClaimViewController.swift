@@ -14,7 +14,6 @@ class ClaimViewController: UIViewController {
     private var backImageView:UIImageView!
     private var intruduceLabel = UILabel()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
@@ -100,23 +99,17 @@ class ClaimViewController: UIViewController {
         let isLogin = UserDefaults.standard.bool(forKey: "isLogin")
         print( isLogin )
         
-     
         guard UserDefaults.standard.bool(forKey: "isLogin") else {
             showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
             return
         }
-        
-    
         
         let vc = ClaimTabieViewController()
         navigationController?.pushViewController(vc, animated: true)
         
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
 
 
 }

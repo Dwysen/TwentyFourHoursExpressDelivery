@@ -29,7 +29,6 @@ class AddressBtn: UIButton {
         titleLabel?.font = UIFont.systemFont(ofSize: 13)
 //        titleLabel?.text = type
     
-    
     }
     
     required init?(coder aDecoder: NSCoder) {

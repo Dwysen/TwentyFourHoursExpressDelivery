@@ -19,7 +19,6 @@ enum Validate {
     case URL(_: String)
     case IP(_: String)
     
-    
     var isRight: Bool {
         var predicateStr:String!
         var currObject:String!

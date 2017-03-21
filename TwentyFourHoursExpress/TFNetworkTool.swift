@@ -80,7 +80,6 @@ class TFNetworkTool:NSObject {
         task.resume()
     }
     
-    
     // 用户名 密码 登录
     
     class func LoginWithIdentify(phone:String,code:String,finished:@escaping (_ response:[String:Any]) -> ()){
@@ -125,9 +124,14 @@ class TFNetworkTool:NSObject {
     
     // 获取收件地址
     
-    class func getAcceptAddress(finished:@escaping (_ addressArr:[AcceptAddress] ) -> ()){
+    class func getAcceptAddress(sendOrAccpet:String,finished:@escaping (_ sendAddressArr:[SendAddress], _ acceptAddressArr:[AcceptAddress] ) -> ()){
         
-        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/userToAddr")
+        var url:URL!
+        if sendOrAccpet == "Send" {
+        url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/userAddr")
+        } else {
+        url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/userToAddr")
+        }
         var request = URLRequest(url: url!)
         
         let phone = UserDefaults.standard.string(forKey: "phone")
@@ -145,7 +149,7 @@ class TFNetworkTool:NSObject {
                     return
                 }
                 
-                print(responseObject)
+                print(responseObject ?? "nil")
                 
                 let status = responseObject?["status"] as! Int
          
@@ -154,22 +158,37 @@ class TFNetworkTool:NSObject {
                     return
                 }
                 
-                let acceptAddressArr = responseObject?["personDelivery"] as! [Any]
-                var addressArr = [AcceptAddress]()
-                for item in acceptAddressArr{
-                    let address = AcceptAddress(fromDictionary: item as! NSDictionary)
-                    addressArr.append(address)
+                let AddressArr = responseObject?["personDelivery"] as! [Any]
+                
+                if sendOrAccpet == "Send" {
+                    
+                    var addressArr = [SendAddress]()
+                    for item in AddressArr{
+                        let address = SendAddress(fromDictionary: item as! NSDictionary)
+                        addressArr.append(address)
+                    }
+                   finished(addressArr, [])
+                    
+                } else {
+                    
+                    var addressArr = [AcceptAddress]()
+                    for item in AddressArr{
+                        let address = AcceptAddress(fromDictionary: item as! NSDictionary)
+                        addressArr.append(address)
+                    }
+                    finished([], addressArr)
                     
                 }
-                finished(addressArr)
+                
             }
+                
             else {
                 print("data == nil")
             }
-        }
+            
+        } // task结尾括号
         task.resume()
     }
-    
     
     // 获取验证码
     
@@ -204,8 +223,6 @@ class TFNetworkTool:NSObject {
         }
         task.resume()
     }
-    
-    
     
     class func postTest(){
         
@@ -247,15 +264,15 @@ class TFNetworkTool:NSObject {
         
     }
     
-    class func AddNewAddress(){
+    class func editAcceptAddress(acceptAddress:AcceptAddress,finished:@escaping (_ status:Int) -> ()){
         
-        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/updateUserToAddr")
+        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/editReceiverAddr")
         var request = URLRequest(url: url!)
         
         let phone = UserDefaults.standard.string(forKey: "phone")
         let token = UserDefaults.standard.string(forKey: "token")
         
-        let params:[String:Any] = ["phone":"\(phone!)","token":"\(token!)","data":["to_whom":"Haha","to_where":"北京","receiver_phone":"18612038633"]]
+        let params:[String:Any] = ["phone":"\(phone!)","token":"\(token!)","data":["id":acceptAddress.id,"to_where":acceptAddress.toWhere,"to_whom":acceptAddress.toWhom,"receiver_phone":acceptAddress.toWhomPhone]]
         let jsonData = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
         request.httpMethod = "POST"
         request.httpBody = jsonData
@@ -274,21 +291,72 @@ class TFNetworkTool:NSObject {
                 guard responseObject != nil else{
                     return
                 }
-                //                let status = responseObject?["status"] as! Int
-                //                let code = responseObject?["code"] as! String
+                
+                let status = responseObject?["status"] as! Int
+                
+                finished(status)
+                
             }
             else {
                 print("data == nil")
             }
             
         }
-        
         task.resume()
+        
+        
         
     }
 
     
+    // 更新寄件人地址
     
+    class func editSendAddress(sendAddress:SendAddress,finished:@escaping (_ status:Int) -> ()){
+        
+        let url = URL(string: "http://www.lishidewo.com/index.php/DeliApi/user/editSenderAddr")
+        var request = URLRequest(url: url!)
+        
+        let phone = UserDefaults.standard.string(forKey: "phone")
+        let token = UserDefaults.standard.string(forKey: "token")
+        
+        let params:[String:Any] = ["phone":"\(phone!)","token":"\(token!)","data":["id":sendAddress.id,"from_where":sendAddress.fromWhere,"from_whom":sendAddress.fromWhom,"sender_phone":sendAddress.fromWhomPhone]]
+        let jsonData = try? JSONSerialization.data(withJSONObject: params, options: .prettyPrinted)
+        request.httpMethod = "POST"
+        request.httpBody = jsonData
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.addValue("application/json", forHTTPHeaderField: "Accept")
+        
+        let session = URLSession.shared
+        let task = session.dataTask(with: request) { (data, response, error) in
+            if data != nil {
+                
+                print("data != nil")
+                
+                let responseObject = try? JSONSerialization.jsonObject(with: data!, options: .allowFragments) as! [String:Any]
+                print(responseObject ?? 0)
+                
+                guard responseObject != nil else{
+                    return
+                }
+                
+                let status = responseObject?["status"] as! Int
+                
+                finished(status)
+                
+            }
+            else {
+                print("data == nil")
+            }
+            
+        }
+        task.resume()
+        
+        
+        
+    }
+    
+    
+
 //    class func getResponseObject(request:URLRequest ) -> [String:Any]{
 //        
 //        var responseObject : [String:Any]!
@@ -303,7 +371,6 @@ class TFNetworkTool:NSObject {
 //        return responseObject
 //        task.resume()
 //    }
-    
     
     class func getAllSendExpress(finished:@escaping (_ deliveryArr:[TFPersonDelivery]) -> ()){
     
@@ -358,10 +425,3 @@ class TFNetworkTool:NSObject {
     }
     
 }
-
-
-
-    
-    
-    
-

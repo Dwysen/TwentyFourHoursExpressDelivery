@@ -17,15 +17,19 @@ class AddressTableViewContriller: UIViewController {
     var tableView:UITableView!
     var backgroundLabel:UILabel!
     
+    // 判断是寄件地址还是收件地址
+    var sendOrAccept = ""
+    
+    // 判断是编辑还是添加
     var type = ""
+    // 判断是由哪个界面点进来的
     var resourse = ""
     
     var editRow:Int!
     
-    var testArr = ["1","2","3","4","5","6","7","8","9"]
-    
     var delegate:passAddressDelegate?
-    var addressArr:Array = [AcceptAddress]()
+    var acceptAddressArr:Array = [AcceptAddress]()
+    var sendAddressArr:Array = [SendAddress]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,30 +49,31 @@ class AddressTableViewContriller: UIViewController {
 
         backgroundLabel.text = "正在刷新，请稍等..."
         backgroundLabel.textColor = TitleGrayColor()
-    
         backgroundLabel.textAlignment = .center
         view.addSubview(backgroundLabel)
      
-        print(addressArr.count)
         
-//        self.showRoundProgressWithTitle(title: "努力加载中")
+//        TFNetworkTool.getAcceptAddress(sendOrAccpet: sendOrAccept, finished: { (addressArr) in
+//                DispatchQueue.main.async {
+//                    self.acceptAddressArr = acceptAddressArr
+//                    print(addressArr.count)
+//                    self.setupTableView()
+//                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+//                }
+//            })
         
-        TFNetworkTool.getAcceptAddress { (addressArr) in
-            
+        TFNetworkTool.getAcceptAddress(sendOrAccpet: sendOrAccept) { (sendAddressArr, acceptAddressArr) in
             DispatchQueue.main.async {
-                
-                
-                
-                self.addressArr = addressArr
-                print(addressArr.count)
-                
+                if self.sendOrAccept == "Send" {
+                self.sendAddressArr = sendAddressArr
+                } else {
+                self.acceptAddressArr = acceptAddressArr
+                }
                 self.setupTableView()
-                
-                
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
-                
             }
         }
+
     }
     
     deinit {
@@ -85,6 +90,7 @@ class AddressTableViewContriller: UIViewController {
     
     }
     
+    
     func setupTableView(){
         
         tableView = UITableView(frame: CGRect(x: 0, y: 0, width: ScreenWidth, height: ScreenHeight - navigationH))
@@ -98,10 +104,7 @@ class AddressTableViewContriller: UIViewController {
 
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
     
     func clickDeleteRow(sender:AddressBtn){
         
@@ -112,7 +115,7 @@ class AddressTableViewContriller: UIViewController {
             (UIAlertAction) -> Void in
             
             let deleteRowNumber = sender.tag
-            self.addressArr.remove(at: deleteRowNumber)
+            self.acceptAddressArr.remove(at: deleteRowNumber)
             let indexPath = IndexPath(row: deleteRowNumber, section: 0)
             self.tableView.deleteRows(at: [indexPath], with: .right)
             self.tableView.reloadData()
@@ -131,29 +134,36 @@ class AddressTableViewContriller: UIViewController {
         vc.type = type
         editRow = sender.tag
         vc.delegate = self
-        vc.editAddress = addressArr[sender.tag]
+        
+        if sendOrAccept == "Send" {
+        vc.sendOrAccept = sendOrAccept
+        vc.editSendAddress = sendAddressArr[sender.tag]
+        } else {
+        vc.sendOrAccept = sendOrAccept
+        vc.editAccpetAddress = acceptAddressArr[sender.tag]
+        }
+        
+        
         navigationController?.pushViewController(vc, animated: true)
         
     }
-
-
 }
 
 extension AddressTableViewContriller:AddressProtocol{
     
-    func passAddress(address: AcceptAddress) {
+    func passAcceptAddress(address: AcceptAddress) {
        
         switch type {
             
         // 如果是编辑
         case "Edit":
             
-            addressArr[editRow] = address
+            acceptAddressArr[editRow] = address
             tableView.reloadData()
         
         case "Add":
             
-            addressArr.append(address)
+            acceptAddressArr.append(address)
             
             if tableView == nil {
                 setupTableView()
@@ -163,23 +173,52 @@ extension AddressTableViewContriller:AddressProtocol{
             
         default:break
         }
+        
     }
+    
+    func passSendAddress(address: SendAddress) {
+        
+        switch type {
+            
+        // 如果是编辑
+        case "Edit":
+            
+            sendAddressArr[editRow] = address
+            tableView.reloadData()
+            
+        case "Add":
+            
+            sendAddressArr.append(address)
+            
+            if tableView == nil {
+                setupTableView()
+            } else {
+                tableView.reloadData()
+            }
+            
+        default:break
+        }
+        
+    }
+    
 }
 
 extension AddressTableViewContriller:UITableViewDataSource {
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return addressArr.count
+      
+        return sendOrAccept == "Send" ? sendAddressArr.count : acceptAddressArr.count
     }
-    
-//    func numberOfSections(in tableView: UITableView) -> Int {
-//        return testArr.count
-//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = AddressCell(style: .default, reuseIdentifier: "AddressCell")
-        cell.address = addressArr[indexPath.row]
+        
+        if sendOrAccept == "Send" {
+        cell.sendAddress = sendAddressArr[indexPath.row]
+        } else {
+        cell.accpetAddress = acceptAddressArr[indexPath.row]
+        }
       
         cell.deleteBtn.tag = indexPath.row
         cell.deleteBtn.addTarget(self, action: #selector(clickDeleteRow(sender:)), for: .touchUpInside)
@@ -191,7 +230,14 @@ extension AddressTableViewContriller:UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let text = addressArr[indexPath.row].toWhere
+//        if sendOrAccept == "Send" {
+//        let text = sendAddressArr[indexPath.row].fromWhere
+//        } else {
+//        let text = acceptAddressArr[indexPath.row].toWhere
+//        }
+        
+        let text = sendOrAccept == "Send" ? sendAddressArr[indexPath.row].fromWhere : acceptAddressArr[indexPath.row].toWhere
+        
         let font = UIFont.systemFont(ofSize: 12)
         let attr = [NSFontAttributeName:font]
         let height = autoLabelHeight(with: text!, labelWidth: ScreenWidth - 20, attributes: attr)
@@ -209,36 +255,11 @@ extension AddressTableViewContriller:UITableViewDelegate {
 //        //获得文字高度
 //        let labelHeight = (cell?.height)! - 110
         
-        
         // 如果是地址簿ViewContoller推进来的，则点击Cell返回地址
-        
         if resourse != "" {
-        
-            delegate?.passAddress(address: addressArr[indexPath.row].toWhere,resourse:resourse)
+            delegate?.passAddress(address: acceptAddressArr[indexPath.row].toWhere,resourse:resourse)
             _ = navigationController?.popViewController(animated: true)
         
         }
-//        if resourse == ""{
-//            
-//            // 如果是我的界面地址栏推进来的,则点击Cell没有事件
-//        
-//        
-//        
-//        }
-        
-        
-   
-    
-
     }
-    
-    
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//        testArr.remove(at: indexPath)
-//            print(testArr)
-//            tableView.deleteRows(at: [indexPath], with: .right)
-//        }
-//    }
-
 }

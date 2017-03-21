@@ -27,10 +27,7 @@ class LoginByPasswordViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
     
     private func setupUI(){
         
@@ -69,11 +66,9 @@ class LoginByPasswordViewController: UIViewController {
         
     }
     
-    
     deinit {
         print("Login release")
     }
-    
     
     func generateToken(sloat:String) -> String{
         
@@ -119,7 +114,6 @@ class LoginByPasswordViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
         
     }
-    
     
     func buildView(View:UIView,imageName:String,placeholder:String){
         

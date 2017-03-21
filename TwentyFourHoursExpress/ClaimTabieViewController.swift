@@ -56,11 +56,6 @@ class ClaimTabieViewController: UIViewController {
         title = "我的快递"
 
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    
-    }
     
     func clickClaimBtn(sender:UIButton){
         

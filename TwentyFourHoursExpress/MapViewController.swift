@@ -9,20 +9,30 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController {
+class MapViewController: UIViewController,MKMapViewDelegate {
     
-    var mapView:MKMapView!
+    //  待解决： MkmapView无法释放
+    
+    private lazy var mapView:MKMapView = {
+    
+        let mapView = MKMapView(frame: self.view.bounds)
+        mapView.mapType = .standard
+        mapView.delegate = self
+        return mapView
+    
+    }()
 
+    override func viewWillAppear(_ animated: Bool) {
+        view.addSubview(mapView)
+    }
+   
+    
     override func viewDidLoad() {
         
         super.viewDidLoad()
         tabBarController?.tabBar.isHidden = true
+ 
         
-        mapView = MKMapView(frame: view.bounds)
-        mapView.mapType = .standard
-        view.addSubview(mapView)
-        
-    
         let center = CLLocationCoordinate2D(latitude: 32.029171, longitude: 118.788231)
         let currentRegion:MKCoordinateRegion = MKCoordinateRegion(center: center, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         mapView.setRegion(currentRegion, animated: true)
@@ -33,12 +43,23 @@ class MapViewController: UIViewController {
         annotation.subtitle = "南京市中华路"
         mapView.addAnnotation(annotation)
 
-
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        mapView.removeFromSuperview()
+        view.addSubview(mapView)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        
+        mapView.delegate = nil
+        mapView.removeFromSuperview()
+    
         
     }
     
+    deinit {
+        print("MapView relese")
+    }
+
 }

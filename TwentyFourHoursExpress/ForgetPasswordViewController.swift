@@ -64,7 +64,6 @@ class ForgetPasswordViewController: UIViewController {
         
     }
     
-    
     // 更新密码
     func clickEnsureBtn(){
         
@@ -153,8 +152,7 @@ class ForgetPasswordViewController: UIViewController {
         //确认密码
         default:
             ensurePasswordIsRight = Validate.password(text!).isRight
-            
-            
+
         }
         //两次输入密码相同
         let passwordIsSame = passwordTextFid.text == ensurePasswordTextFid.text ? true:false
@@ -172,7 +170,6 @@ class ForgetPasswordViewController: UIViewController {
         }
     }
 
-    
     func clickGetIdentifyCodeBtn(){
         
         let isPhone = Validate.phoneNum(phoneTextFid.text!).isRight
@@ -191,11 +188,4 @@ class ForgetPasswordViewController: UIViewController {
             }
         })
     }
-    
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }

@@ -57,6 +57,7 @@
 		18CD90501E79348700AEFB0E /* TFPersonDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */; };
 		18E3B0321E7A7208007DAEA2 /* AcceptAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E3B0311E7A7208007DAEA2 /* AcceptAddress.swift */; };
 		18E3B0341E7A83C5007DAEA2 /* SwiftyJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E3B0331E7A83C5007DAEA2 /* SwiftyJSON.swift */; };
+		18E78F861E81117000CFDDCE /* SendAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E78F851E81117000CFDDCE /* SendAddress.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,6 +114,7 @@
 		18CD904E1E79348700AEFB0E /* TFPersonDelivery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonDelivery.swift; sourceTree = "<group>"; };
 		18E3B0311E7A7208007DAEA2 /* AcceptAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AcceptAddress.swift; sourceTree = "<group>"; };
 		18E3B0331E7A83C5007DAEA2 /* SwiftyJSON.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SwiftyJSON.swift; sourceTree = "<group>"; };
+		18E78F851E81117000CFDDCE /* SendAddress.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SendAddress.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 			isa = PBXGroup;
 			children = (
 				18E3B0311E7A7208007DAEA2 /* AcceptAddress.swift */,
+				18E78F851E81117000CFDDCE /* SendAddress.swift */,
 			);
 			name = M;
 			sourceTree = "<group>";
@@ -389,6 +392,7 @@
 				180AEA871E6D1BC600E2DD4E /* TypeTableViewController.swift in Sources */,
 				188A0F091E69668800F69F02 /* SendExpressViewController.swift in Sources */,
 				1874D0D31E6E966E006C1416 /* AddressBtn.swift in Sources */,
+				18E78F861E81117000CFDDCE /* SendAddress.swift in Sources */,
 				186B72291E729B2700166B3A /* ClaimCell.swift in Sources */,
 				184D18C61E67F23000336479 /* MeButton.swift in Sources */,
 				18CCA4DE1E7B8D270099E8DC /* MapViewController.swift in Sources */,

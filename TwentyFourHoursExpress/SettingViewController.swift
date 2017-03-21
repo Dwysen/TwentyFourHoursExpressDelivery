@@ -18,9 +18,7 @@ class SettingViewController: UIViewController {
         view.backgroundColor = BackScrollColor()
         title = "设置"
         setupUI()
-        
 
-        // Do any additional setup after loading the view.
     }
     
     func setupUI(){
@@ -31,7 +29,6 @@ class SettingViewController: UIViewController {
         
         let tapAboutUsGR = UITapGestureRecognizer(target: self, action: #selector(tapAboutUs))
         aboutUsView.addGestureRecognizer(tapAboutUsGR)
-        
         
         let lineView = UIView(frame: CGRect(x: 44, y: 43.5, width: ScreenWidth - 44 - 10, height: 1))
         lineView.backgroundColor = BackScrollColor()
@@ -63,13 +60,11 @@ class SettingViewController: UIViewController {
         UserDefaults.standard.removeObject(forKey: "token")
         UserDefaults.standard.set(false, forKey: "isLogin")
     
-        
         let vc = self.navigationController?.viewControllers[(self.navigationController?.viewControllers.count)! - 2] as! MeViewController
         vc.headTopView.nameLabel.text = "点击登录"
         vc.headTopView.iconButton.isEnabled = true
         _ = navigationController?.popViewController(animated: true)
         
-    
     }
 
     private func buildView(view:UIView,title:String,rightSubtitle:Bool){
@@ -111,20 +106,6 @@ class SettingViewController: UIViewController {
         
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }

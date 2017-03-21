@@ -26,10 +26,6 @@ class LoginByIdentifyCodeViewController: UIViewController {
         super.viewDidLoad()
         setupUI()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     private func setupUI(){
         
@@ -82,10 +78,6 @@ class LoginByIdentifyCodeViewController: UIViewController {
             
             }
         
-        
-        
-        
-    
     }
     
     func buildView(View:UIView,imageName:String,placeholder:String){

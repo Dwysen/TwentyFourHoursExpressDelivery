@@ -9,7 +9,10 @@
 import UIKit
 
 protocol AddressProtocol {
-    func passAddress(address:AcceptAddress)
+    
+    func passAcceptAddress(address:AcceptAddress)
+    
+    func passSendAddress(address:SendAddress)
 }
 
 class AddressDetailViewController: UIViewController {
@@ -18,21 +21,32 @@ class AddressDetailViewController: UIViewController {
     var addressView = UITextView()
     var nameField = UITextField()
     
+    var sendOrAccept = ""
     var type = ""
     
     var delegate:AddressProtocol?
     
     var placeholderLabel = UILabel()
     
-    var editAddress:AcceptAddress?
+    var editAccpetAddress:AcceptAddress?
         {
         didSet{
-            phoneField.text = editAddress?.toWhomPhone
-            nameField.text = editAddress?.toWhom
-            addressView.text = editAddress?.toWhere
+            phoneField.text = editAccpetAddress?.toWhomPhone
+            nameField.text = editAccpetAddress?.toWhom
+            addressView.text = editAccpetAddress?.toWhere
             placeholderLabel.isHidden = true
               }
         }
+    
+    var editSendAddress:SendAddress?
+        {
+        didSet{
+            phoneField.text = editSendAddress?.fromWhomPhone
+            nameField.text = editSendAddress?.fromWhom
+            addressView.text = editSendAddress?.fromWhere
+            placeholderLabel.isHidden = true
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,9 +81,12 @@ class AddressDetailViewController: UIViewController {
         view.addSubview(placeholderLabel)
         
     }
+    
+    deinit {
+        print("AddressDetailViewController release")
+    }
 
     func save(){
-        
         
         guard Validate.phoneNum(phoneField.text!).isRight else {
             showErrorWithTitle(title: "号码格式错误", autoCloseTime: 0.5)
@@ -81,27 +98,95 @@ class AddressDetailViewController: UIViewController {
             return
         }
         
+        // 更新收件人地址
+        
+        if sendOrAccept == "Accept" {
+        
+        let address = AcceptAddress(id: editAccpetAddress!.id, toWhere: addressView.text, toWhom: nameField.text!, toWhomPhone: phoneField.text!)
+        
         switch type {
         case "Add":
-            TFNetworkTool.AddNewAddress()
+              break
         case "Edit":
-            break
+            
+            TFNetworkTool.editAcceptAddress(acceptAddress: address, finished: { (status) in
+                if status == 200 {
+                
+                    DispatchQueue.main.async {
+                      
+                        self.delegate?.passAcceptAddress(address: address)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        self.showRightWithTitle(title: "更新地址成功", autoCloseTime: 1)
+                        
+                    }
+                    
+                    
+                } else {
+                  
+                    DispatchQueue.main.async {
+                        self.showErrorWithTitle(title: "更新失败", autoCloseTime: 0.5)
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }
+                    
+                    
+                }
+                
+            })
+            
         default:
             break
         }
         
-        let dict = ["to_whom":"\(nameField.text!)","receiver_phone":"\(phoneField.text!)","to_where":"\(addressView.text!)"]
-        let address = AcceptAddress(fromDictionary: dict as NSDictionary)
-        self.delegate?.passAddress(address: address)
-
-        _ = navigationController?.popViewController(animated: true)
+     
+        }
+        
+        // 更新寄件地址
+        
+        if sendOrAccept == "Send" {
+            
+            let address = SendAddress(id: editSendAddress!.id, fromWhere: addressView.text, fromWhom: nameField.text!, fromWhomPhone: phoneField.text!)
+            
+            switch type {
+            case "Add":
+                break
+            case "Edit":
+                
+                TFNetworkTool.editSendAddress(sendAddress: address, finished: { (status) in
+                    if status == 200 {
+                        
+                        DispatchQueue.main.async {
+                            
+                            self.delegate?.passSendAddress(address: address)
+                            _ = self.navigationController?.popViewController(animated: true)
+                            self.showRightWithTitle(title: "更新地址成功", autoCloseTime: 1)
+                            
+                        }
+                        
+                        
+                    } else {
+                        
+                        DispatchQueue.main.async {
+                            self.showErrorWithTitle(title: "更新失败", autoCloseTime: 0.5)
+                            _ = self.navigationController?.popViewController(animated: true)
+                        }
+                        
+                        
+                    }
+                    
+                })
+                
+            default:
+                break
+            }
+            
+            
+        }
+        
+    
    
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
     private func buildInputView(view:UIView,title:String,placeholder:String){
         
         let titleLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 80, height: 24))
@@ -143,6 +228,4 @@ extension AddressDetailViewController:UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         placeholderLabel.isHidden = true
     }
-    
-
 }

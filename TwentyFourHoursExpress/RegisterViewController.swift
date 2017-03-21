@@ -23,7 +23,6 @@ class RegisterViewController: UIViewController {
     
     private var identifyCode = ""
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
   
@@ -66,8 +65,6 @@ class RegisterViewController: UIViewController {
         view.addSubview(ensureBtn)
     }
     
-    
- 
     // 注册
     func clickEnsureBtn(){
      
@@ -204,13 +201,6 @@ class RegisterViewController: UIViewController {
         
         }
     }
-    
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
 }
 
 //extension RegisterViewController:UITextFieldDelegate {

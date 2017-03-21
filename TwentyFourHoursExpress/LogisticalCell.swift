@@ -34,12 +34,7 @@ class LogisticalCell: UITableViewCell {
         detailLabel.text = "在XXX省XXX市XXX街道XXX办事处进行揽件扫描在XXX省XXX市XXX街道XXX办事处进行揽件扫描"
         
         addSubview(detailLabel)
-        
-        
-        
-    
-        
-        
+         
     }
     
     required init?(coder aDecoder: NSCoder) {

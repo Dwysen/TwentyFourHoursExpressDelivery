@@ -29,7 +29,6 @@ class MeViewController: UIViewController {
     //
     //    let titleViewHeight:CGFloat = 80
     
-    
 //    override func loadView() {
 //        
 //    }
@@ -59,7 +58,6 @@ class MeViewController: UIViewController {
 
         
     }
-    
     
     private func setupTableHeadView(){
         
@@ -123,7 +121,6 @@ class MeViewController: UIViewController {
         let vc = LoginViewController()
         navigationController?.pushViewController(vc, animated: true)
         
-    
     }
     
     func clickSettingBtn(){
@@ -133,10 +130,7 @@ class MeViewController: UIViewController {
         
         }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
     
     //    fileprivate lazy var BackScrollView:UIScrollView = {
     //
@@ -198,42 +192,34 @@ extension MeViewController:UITableViewDelegate{
         
         switch indexPath.section {
         case 0:
+            
+            let token = UserDefaults.standard.string(forKey: "token")
+            let phone = UserDefaults.standard.string(forKey: "phone")
+            
+            guard token != nil && phone != nil else {
+                showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
+                return
+            }
+            
             //寄件地址
             if indexPath.row == 0 {
-            
-                let token = UserDefaults.standard.string(forKey: "token")
-                let phone = UserDefaults.standard.string(forKey: "phone")
-                
-                guard token != nil && phone != nil else {
-                    showErrorWithTitle(title: "请登录", autoCloseTime: 0.5)
-                    return
-                }
-                
-                // 个人寄件记录
-                
-          
-                
-             
-    
+        
                 let vc = AddressTableViewContriller()
+                vc.sendOrAccept = "Send"
                 navigationController?.pushViewController(vc, animated: true)
-                
-             
                 
             }
             
             if indexPath.row == 1 {
             
-                
-                
                 let vc = AddressTableViewContriller()
+                vc.sendOrAccept = "Accept"
                 navigationController?.pushViewController(vc, animated: true)
                 
             }
-            
-            
+
         default:
-            
+            // 联系我们
             if indexPath.row == 0 {
                 
                 let alertController = UIAlertController(title: "联系我们", message: "拨打24小时官网电话", preferredStyle: .alert) // 这里因为控件都不存在改变的可能，所以一律使用let类型.UIAlertControllerStyle可以选择.actionSheet或.alert
@@ -250,15 +236,11 @@ extension MeViewController:UITableViewDelegate{
                 self.present(alertController, animated: true, completion: nil)
                 
             }
-            
+            // 投诉建议
             if indexPath.row == 1 {
-            
                 let vc = AdviceViewController()
                 navigationController?.pushViewController(vc, animated: true)
-            
             }
-            
         }
     }
-    
 }

@@ -16,11 +16,8 @@ class AdviceViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = BackScrollColor()
  
-        
-        
         setupUI()
         
-        // Do any additional setup after loading the view.
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,14 +47,10 @@ class AdviceViewController: UIViewController {
         commitBtn.backgroundColor = GreenColor()
         commitBtn.titleLabel?.font = UIFont.systemFont(ofSize: 18)
         view.addSubview(commitBtn)
-        
     
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
 
 }
 
@@ -66,6 +59,5 @@ extension AdviceViewController:UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {
         placeholderLabel.isHidden = true
     }
-    
     
 }

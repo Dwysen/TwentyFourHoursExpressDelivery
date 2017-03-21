@@ -51,11 +51,6 @@ class ClaimReasonTableViewController: UIViewController {
         dismiss(animated: true) {
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        
-    }
     
     func setupUI(){
     

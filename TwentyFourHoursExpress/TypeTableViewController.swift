@@ -19,14 +19,8 @@ class TypeTableViewController: UITableViewController {
     let typeArr = ["类型","类型","类型","类型","类型","类型","类型","类型"]
     override func viewDidLoad() {
         super.viewDidLoad()
-
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
+ 
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows

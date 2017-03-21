@@ -15,20 +15,15 @@ class LogisticalDetailViewController: UIViewController {
     private var IDLabel = UILabel()
     private var timeLineTableView = UITableView()
 
-    
-
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = UIColor.white
         tabBarController?.tabBar.isHidden = true
         
-        
         setupTopView()
         
         setupTimeLineTableView()
-        
-        
-        // Do any additional setup after loading the view.
+ 
     }
     
     func setupTopView(){
@@ -36,10 +31,8 @@ class LogisticalDetailViewController: UIViewController {
         let topView = UIView(frame: CGRect(x: 0, y: navigationH, width: ScreenWidth, height: 95))
         view.addSubview(topView)
         
-        
         iconView.frame = CGRect(x: 10, y: 10, width: 75, height: 75)
         iconView.backgroundColor = OrangeColor()
-        
         topView.addSubview(iconView)
         
         companyLabel = UILabel(frame: CGRect(x: 100, y: 10, width: 100, height: 20))
@@ -55,25 +48,14 @@ class LogisticalDetailViewController: UIViewController {
     func setupTimeLineTableView(){
     
         timeLineTableView.frame = CGRect(x: 10, y: navigationH + 95 + 10, width: ScreenWidth, height: ScreenHeight - navigationH - 105)
-        
-        
-        
         timeLineTableView.dataSource = self
         timeLineTableView.delegate = self
-        
         timeLineTableView.separatorStyle = .none
-        
         view.addSubview(timeLineTableView)
     
-    
     }
     
-
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
+ 
     
 
 }
@@ -87,11 +69,7 @@ extension LogisticalDetailViewController:UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell =  LogisticalCell()
         return cell
-        
     }
-    
-    
-    
 }
 
 extension LogisticalDetailViewController:UITableViewDelegate{
@@ -104,4 +82,3 @@ extension LogisticalDetailViewController:UITableViewDelegate{
         
     }
 }
-
