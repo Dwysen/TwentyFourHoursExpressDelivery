@@ -88,6 +88,8 @@ class AddressDetailViewController: UIViewController {
 
     func save(){
         
+        self.navigationItem.rightBarButtonItem?.isEnabled = false
+        
         guard Validate.phoneNum(phoneField.text!).isRight else {
             showErrorWithTitle(title: "号码格式错误", autoCloseTime: 0.5)
             return
@@ -98,17 +100,40 @@ class AddressDetailViewController: UIViewController {
             return
         }
         
-        // 更新收件人地址
+        // 收件人地址
         
         if sendOrAccept == "Accept" {
-        
-        let address = AcceptAddress(id: editAccpetAddress!.id, toWhere: addressView.text, toWhom: nameField.text!, toWhomPhone: phoneField.text!)
-        
+    
         switch type {
+            
+        // 添加收件人地址
         case "Add":
-              break
+            let address = AcceptAddress(id: "nil", toWhere: addressView.text, toWhom: nameField.text!, toWhomPhone: phoneField.text!)
+            TFNetworkTool.addAcceptAddress(acceptAddress: address, finished: { (status) in
+                if status == 200 {
+                    
+                    DispatchQueue.main.async {
+                        
+                        self.delegate?.passAcceptAddress(address: address)
+                        _ = self.navigationController?.popViewController(animated: true)
+                        self.showRightWithTitle(title: "更新地址成功", autoCloseTime: 1)
+                        
+                    }
+                    
+                } else {
+                    
+                    DispatchQueue.main.async {
+                        self.showErrorWithTitle(title: "更新失败", autoCloseTime: 0.5)
+                        _ = self.navigationController?.popViewController(animated: true)
+                    }
+                }
+
+            })
+        
+        // 编辑收件人地址
         case "Edit":
             
+            let address = AcceptAddress(id: editAccpetAddress!.id, toWhere: addressView.text, toWhom: nameField.text!, toWhomPhone: phoneField.text!)
             TFNetworkTool.editAcceptAddress(acceptAddress: address, finished: { (status) in
                 if status == 200 {
                 
@@ -125,7 +150,7 @@ class AddressDetailViewController: UIViewController {
                   
                     DispatchQueue.main.async {
                         self.showErrorWithTitle(title: "更新失败", autoCloseTime: 0.5)
-                        _ = self.navigationController?.popViewController(animated: true)
+                        self.navigationItem.rightBarButtonItem?.isEnabled = true
                     }
                     
                     
@@ -137,25 +162,22 @@ class AddressDetailViewController: UIViewController {
             break
         }
         
-     
         }
         
-        // 更新寄件地址
+        // 寄件人地址
         
         if sendOrAccept == "Send" {
             
-            let address = SendAddress(id: editSendAddress!.id, fromWhere: addressView.text, fromWhom: nameField.text!, fromWhomPhone: phoneField.text!)
-            
             switch type {
-            case "Add":
-                break
-            case "Edit":
                 
-                TFNetworkTool.editSendAddress(sendAddress: address, finished: { (status) in
+            // 添加寄件人地址
+            case "Add":
+                let address = SendAddress(id: "nil", fromWhere: addressView.text, fromWhom: nameField.text!, fromWhomPhone: phoneField.text!)
+                TFNetworkTool.addSendAddress(sendAddress: address, finished: { (status) in
                     if status == 200 {
                         
                         DispatchQueue.main.async {
-                            
+                        
                             self.delegate?.passSendAddress(address: address)
                             _ = self.navigationController?.popViewController(animated: true)
                             self.showRightWithTitle(title: "更新地址成功", autoCloseTime: 1)
@@ -174,19 +196,40 @@ class AddressDetailViewController: UIViewController {
                     }
                     
                 })
+               
+            // 编辑寄件人地址
+            case "Edit":
+                
+                let address = SendAddress(id: editSendAddress!.id, fromWhere: addressView.text, fromWhom: nameField.text!, fromWhomPhone: phoneField.text!)
+                TFNetworkTool.editSendAddress(sendAddress: address, finished: { (status) in
+                    if status == 200 {
+                        
+                        DispatchQueue.main.async {
+                            
+                            self.delegate?.passSendAddress(address: address)
+                            _ = self.navigationController?.popViewController(animated: true)
+                            self.showRightWithTitle(title: "更新地址成功", autoCloseTime: 1)
+                            
+                        }
+                        
+                        
+                    } else {
+                        
+                        DispatchQueue.main.async {
+                            self.showErrorWithTitle(title: "更新失败", autoCloseTime: 0.5)
+                            self.navigationItem.rightBarButtonItem?.isEnabled = true
+                        }
+        
+                    }
+                    
+                })
                 
             default:
                 break
             }
-            
-            
         }
-        
-    
-   
     }
     
- 
     private func buildInputView(view:UIView,title:String,placeholder:String){
         
         let titleLabel = UILabel(frame: CGRect(x: 20, y: 10, width: 80, height: 24))

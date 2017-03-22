@@ -32,6 +32,14 @@ class SendExpressViewController: UIViewController {
     var timeLabel:UILabel!
     var companyLabel:UILabel!
     
+    var goodsType = ""
+    var pickTime = ""
+    var companyType = ""
+    
+    var senderID = ""
+    var receiverID = ""
+
+    
     private var remarkTextField:UITextField!
     override func viewDidLoad() {
         
@@ -104,7 +112,7 @@ class SendExpressViewController: UIViewController {
         view.addSubview(textView)
         
         let placeholderLabel = UILabel(frame: CGRect(x: 55, y: 45, width: 100, height: 10))
-        placeholderLabel.text = "请输入地址"
+        placeholderLabel.text = "请选择地址"
         placeholderLabel.textColor = TitleGrayColor()
         view.addSubview(placeholderLabel)
         
@@ -120,6 +128,7 @@ class SendExpressViewController: UIViewController {
             addressIconView.image = UIImage(named: "send")
             sendViewPlaceholderLabel = placeholderLabel
             sendViewTextView = textView
+            sendViewTextView.isEditable = false
             addressBtn.addTarget(self, action: #selector(clickSendAddressBtn), for: .touchUpInside)
             
         }
@@ -128,6 +137,7 @@ class SendExpressViewController: UIViewController {
             addressIconView.image = UIImage(named: "accept")
             acceptViewPlaceholderLabel = placeholderLabel
             acceptViewTextView = textView
+            acceptViewTextView.isEditable = false
             addressBtn.addTarget(self, action: #selector(clickAcceptAddressBtn), for: .touchUpInside)
             
         }
@@ -141,6 +151,7 @@ class SendExpressViewController: UIViewController {
         }
         
         let vc = AddressTableViewContriller()
+        vc.sendOrAccept = "Send"
         vc.delegate = self
         vc.resourse = "SendExpressViewController" 
      
@@ -155,6 +166,7 @@ class SendExpressViewController: UIViewController {
         }
         
         let vc = AddressTableViewContriller()
+        vc.sendOrAccept = "Accept"
         vc.delegate = self
         vc.resourse = "AcceptExpressViewController"
 
@@ -332,6 +344,28 @@ class SendExpressViewController: UIViewController {
 //        print(timeLabel.text!)
 //        print(companyLabel.text!)
         
+        guard sendViewTextView.text != "" else {
+            showErrorWithTitle(title: "寄件地址为空", autoCloseTime: 0.5)
+            return
+        }
+        
+        guard acceptViewTextView.text != "" else {
+            showErrorWithTitle(title: "收件地址为空", autoCloseTime: 0.5)
+            return
+        }
+        
+        guard nameField.text != "" && goodsType != "" && pickTime != "" && companyType != "" else {
+            showErrorWithTitle(title: "必填信息为空", autoCloseTime: 0.5)
+            return
+        }
+        
+        let Order = ExpressOrder(senderID: senderID, receiverID: receiverID, goodsName: nameField.text!, goodsWeight: weightField.text!, goodsDescription: goodsType, pickTime: pickTime, remarks: remarkTextField.text!, deliveryCompany: companyType)
+        
+        // To Do
+        
+    
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -376,10 +410,14 @@ extension SendExpressViewController:passTypeDelegate{
         switch title {
         case "物品类型":
             self.typeLabel.text = type
+            self.goodsType = type
         case "取件时间":
             self.timeLabel.text = type
+            self.pickTime = type
         default:
             self.companyLabel.text = type
+            self.companyType = type
+            
         }
         
     }
@@ -387,15 +425,17 @@ extension SendExpressViewController:passTypeDelegate{
 
 extension SendExpressViewController:passAddressDelegate{
 
-    func passAddress(address: String,resourse:String) {
+    func passAddress(ID:String,address: String,resourse:String) {
         
         if resourse == "SendExpressViewController" {
-        sendViewPlaceholderLabel.isHidden = true
-        sendViewTextView.text = address
+            sendViewPlaceholderLabel.isHidden = true
+            sendViewTextView.text = address
+            senderID = ID
             
         } else {
-        acceptViewPlaceholderLabel.isHidden = true
-        acceptViewTextView.text = address
+            acceptViewPlaceholderLabel.isHidden = true
+            acceptViewTextView.text = address
+            receiverID = ID
         }
         
     }

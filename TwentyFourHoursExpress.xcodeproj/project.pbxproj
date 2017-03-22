@@ -51,6 +51,7 @@
 		18AC65C61E70F16600BF53AA /* LoginByPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */; };
 		18AC65C81E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */; };
 		18AC65CC1E712FD900BF53AA /* ForgetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */; };
+		18C44CB21E825D6F005F0DEF /* ExpressOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C44CB11E825D6F005F0DEF /* ExpressOrder.swift */; };
 		18CCA4DE1E7B8D270099E8DC /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CCA4DD1E7B8D270099E8DC /* MapViewController.swift */; };
 		18CD904C1E79344700AEFB0E /* TFDeliveryList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */; };
 		18CD904F1E79348700AEFB0E /* TFPersonInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */; };
@@ -108,6 +109,7 @@
 		18AC65C51E70F16600BF53AA /* LoginByPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByPasswordViewController.swift; sourceTree = "<group>"; };
 		18AC65C71E70F1AD00BF53AA /* LoginByIdentifyCodeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginByIdentifyCodeViewController.swift; sourceTree = "<group>"; };
 		18AC65CB1E712FD900BF53AA /* ForgetPasswordViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForgetPasswordViewController.swift; sourceTree = "<group>"; };
+		18C44CB11E825D6F005F0DEF /* ExpressOrder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExpressOrder.swift; sourceTree = "<group>"; };
 		18CCA4DD1E7B8D270099E8DC /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		18CD904B1E79344700AEFB0E /* TFDeliveryList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFDeliveryList.swift; sourceTree = "<group>"; };
 		18CD904D1E79348700AEFB0E /* TFPersonInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TFPersonInfo.swift; sourceTree = "<group>"; };
@@ -247,6 +249,7 @@
 		188A0F071E69667100F69F02 /* SendExpress */ = {
 			isa = PBXGroup;
 			children = (
+				18C44CB01E825D62005F0DEF /* M */,
 				188A0F081E69668800F69F02 /* SendExpressViewController.swift */,
 				180AEA861E6D1BC600E2DD4E /* TypeTableViewController.swift */,
 				1874D0CE1E6E5332006C1416 /* AddressTableViewContriller.swift */,
@@ -255,6 +258,14 @@
 				1874D0D21E6E966E006C1416 /* AddressBtn.swift */,
 			);
 			name = SendExpress;
+			sourceTree = "<group>";
+		};
+		18C44CB01E825D62005F0DEF /* M */ = {
+			isa = PBXGroup;
+			children = (
+				18C44CB11E825D6F005F0DEF /* ExpressOrder.swift */,
+			);
+			name = M;
 			sourceTree = "<group>";
 		};
 		18CD904A1E79343E00AEFB0E /* M */ = {
@@ -361,6 +372,7 @@
 				184D18CF1E681F2E00336479 /* ClaimViewController.swift in Sources */,
 				181D3BAA1E6F9D66005B8E9A /* AboutUsViewController.swift in Sources */,
 				181D3BB01E6FE545005B8E9A /* LogisticalCell.swift in Sources */,
+				18C44CB21E825D6F005F0DEF /* ExpressOrder.swift in Sources */,
 				1874D0D51E6EA424006C1416 /* AddressDetailViewController.swift in Sources */,
 				180AEA8B1E6D5E6C00E2DD4E /* SearchViewController.swift in Sources */,
 				1874D0CF1E6E5332006C1416 /* AddressTableViewContriller.swift in Sources */,

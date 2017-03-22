@@ -9,7 +9,7 @@
 import UIKit
 
 protocol passAddressDelegate {
-    func passAddress(address:String,resourse:String)
+    func passAddress(ID:String,address:String,resourse:String)
 }
 
 class AddressTableViewContriller: UIViewController {
@@ -46,13 +46,11 @@ class AddressTableViewContriller: UIViewController {
         
         // 暂无记录
         backgroundLabel = UILabel(frame: CGRect(x: ScreenWidth / 2 - 150, y: 200, width: 300, height: 50))
-
         backgroundLabel.text = "正在刷新，请稍等..."
         backgroundLabel.textColor = TitleGrayColor()
         backgroundLabel.textAlignment = .center
         view.addSubview(backgroundLabel)
      
-        
 //        TFNetworkTool.getAcceptAddress(sendOrAccpet: sendOrAccept, finished: { (addressArr) in
 //                DispatchQueue.main.async {
 //                    self.acceptAddressArr = acceptAddressArr
@@ -62,18 +60,34 @@ class AddressTableViewContriller: UIViewController {
 //                }
 //            })
         
-        TFNetworkTool.getAcceptAddress(sendOrAccpet: sendOrAccept) { (sendAddressArr, acceptAddressArr) in
+        TFNetworkTool.getAcceptAddress(sendOrAccpet: sendOrAccept) { (status, sendAddressArr, acceptAddressArr) in
             DispatchQueue.main.async {
-                if self.sendOrAccept == "Send" {
-                self.sendAddressArr = sendAddressArr
-                } else {
-                self.acceptAddressArr = acceptAddressArr
+                
+                switch status {
+                
+                case 200 :
+                    
+                    if self.sendOrAccept == "Send" {
+                        self.sendAddressArr = sendAddressArr
+                        self.navigationItem.rightBarButtonItem?.isEnabled = sendAddressArr.count == 0 ? true : false
+                
+                    } else {
+                        self.acceptAddressArr = acceptAddressArr
+                        self.navigationItem.rightBarButtonItem?.isEnabled = acceptAddressArr.count == 0 ? true : false
+                    }
+                    self.setupTableView()
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    
+                case 201 :
+                    self.backgroundLabel.text = "暂无地址，请添加"
+                    self.navigationItem.rightBarButtonItem?.isEnabled = true
+                    break
+                default:break
+    
                 }
-                self.setupTableView()
-                self.navigationItem.rightBarButtonItem?.isEnabled = true
             }
         }
-
+        
     }
     
     deinit {
@@ -85,6 +99,7 @@ class AddressTableViewContriller: UIViewController {
         let vc = AddressDetailViewController()
         type = "Add"
         vc.type = type
+        vc.sendOrAccept = sendOrAccept
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     
@@ -114,11 +129,40 @@ class AddressTableViewContriller: UIViewController {
         let okAction = UIAlertAction(title: "删除", style: .default, handler:{
             (UIAlertAction) -> Void in
             
-            let deleteRowNumber = sender.tag
-            self.acceptAddressArr.remove(at: deleteRowNumber)
-            let indexPath = IndexPath(row: deleteRowNumber, section: 0)
-            self.tableView.deleteRows(at: [indexPath], with: .right)
-            self.tableView.reloadData()
+                     let deleteRowNumber = sender.tag
+            
+            switch self.sendOrAccept {
+                
+            case "Send":
+               
+                TFNetworkTool.deleteSendAddress(sendAddress: self.sendAddressArr[deleteRowNumber], finished: { (status) in
+                    if status == 200 {
+                        DispatchQueue.main.async {
+                            self.sendAddressArr.remove(at: deleteRowNumber)
+                            let indexPath = IndexPath(row: deleteRowNumber, section: 0)
+                            self.tableView.deleteRows(at: [indexPath], with: .right)
+                            self.tableView.reloadData()
+                        }
+                    }
+                })
+                
+            case "Accept":
+                
+                TFNetworkTool.deleteAcceptAddress(acceptAddress: self.acceptAddressArr[deleteRowNumber], finished: { (status) in
+                    if status == 200 {
+                        DispatchQueue.main.async {
+                            self.acceptAddressArr.remove(at: deleteRowNumber)
+                            let indexPath = IndexPath(row: deleteRowNumber, section: 0)
+                            self.tableView.deleteRows(at: [indexPath], with: .right)
+                            self.tableView.reloadData()
+                        }
+                    }
+                })
+                
+            default:break
+            
+            }
+        
         })
     
         alertController.addAction(cancelAction)
@@ -256,10 +300,24 @@ extension AddressTableViewContriller:UITableViewDelegate {
 //        let labelHeight = (cell?.height)! - 110
         
         // 如果是地址簿ViewContoller推进来的，则点击Cell返回地址
-        if resourse != "" {
-            delegate?.passAddress(address: acceptAddressArr[indexPath.row].toWhere,resourse:resourse)
-            _ = navigationController?.popViewController(animated: true)
         
+        switch sendOrAccept {
+        case "Send":
+            if resourse != "" {
+                let address = sendAddressArr[indexPath.row]
+                delegate?.passAddress(ID:address.id,address: address.fromWhere,resourse:resourse)
+                _ = navigationController?.popViewController(animated: true)
+                
+            }
+        case "Accept":
+            if resourse != "" {
+                let address = acceptAddressArr[indexPath.row]
+                delegate?.passAddress(ID:address.id,address: address.toWhere,resourse:resourse)
+                _ = navigationController?.popViewController(animated: true)
+                
+            }
+        default:
+            break
         }
     }
 }
